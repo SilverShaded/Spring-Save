@@ -1,0 +1,4022 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>8.2 创建验证服务器 · Spring In Action</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="Craig Walls">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-pageview-count/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-auto-scroll-table/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="8.3-Securing-an-API-with-a-Resource-Server.html" />
+    
+    
+    <link rel="prev" href="8.1-Introducing-OAuth-2.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Spring 实战 (第 6 版) MEAP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../Welcome.html">
+            
+                <a href="../Welcome.html">
+            
+                    
+                    欢迎
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../Chapter-01/Introduction.html">
+            
+                <a href="../Chapter-01/Introduction.html">
+            
+                    
+                    第 1 章 Spring 入门
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../Chapter-01/1.1-What-is-Spring.html">
+            
+                <a href="../Chapter-01/1.1-What-is-Spring.html">
+            
+                    
+                    1.1 什么是 Spring？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../Chapter-01/1.2-Initializing-a-Spring-application/Introduction.html">
+            
+                <a href="../Chapter-01/1.2-Initializing-a-Spring-application/Introduction.html">
+            
+                    
+                    1.2 初始化 Spring 应用程序
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../Chapter-01/1.2-Initializing-a-Spring-application/1.2.1-Initializing-a-Spring-project-with-Spring-Tool-Suite.html">
+            
+                <a href="../Chapter-01/1.2-Initializing-a-Spring-application/1.2.1-Initializing-a-Spring-project-with-Spring-Tool-Suite.html">
+            
+                    
+                    1.2.1 使用 Spring Tool Suite 初始化 Spring 项目
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../Chapter-01/1.2-Initializing-a-Spring-application/1.2.2-Examining-the-Spring-project-structure.html">
+            
+                <a href="../Chapter-01/1.2-Initializing-a-Spring-application/1.2.2-Examining-the-Spring-project-structure.html">
+            
+                    
+                    1.2.2 检查 Spring 项目结构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../Chapter-01/1.3-Writing-a-Spring-application/Introduction.html">
+            
+                <a href="../Chapter-01/1.3-Writing-a-Spring-application/Introduction.html">
+            
+                    
+                    1.3 编写 Spring 应用程序
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.3.1" data-path="../Chapter-01/1.3-Writing-a-Spring-application/1.3.1-Handling-web-requests.html">
+            
+                <a href="../Chapter-01/1.3-Writing-a-Spring-application/1.3.1-Handling-web-requests.html">
+            
+                    
+                    1.3.1 处理 web 请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.2" data-path="../Chapter-01/1.3-Writing-a-Spring-application/1.3.2-Defining-the-view.html">
+            
+                <a href="../Chapter-01/1.3-Writing-a-Spring-application/1.3.2-Defining-the-view.html">
+            
+                    
+                    1.3.2 定义视图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.3" data-path="../Chapter-01/1.3-Writing-a-Spring-application/1.3.3-Testing-the-controller.html">
+            
+                <a href="../Chapter-01/1.3-Writing-a-Spring-application/1.3.3-Testing-the-controller.html">
+            
+                    
+                    1.3.3 测试控制器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.4" data-path="../Chapter-01/1.3-Writing-a-Spring-application/1.3.4-Building-and-running-the-application.html">
+            
+                <a href="../Chapter-01/1.3-Writing-a-Spring-application/1.3.4-Building-and-running-the-application.html">
+            
+                    
+                    1.3.4 构建并运行应用程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.5" data-path="../Chapter-01/1.3-Writing-a-Spring-application/1.3.5-Getting-to-know-Spring-Boot-DevTools.html">
+            
+                <a href="../Chapter-01/1.3-Writing-a-Spring-application/1.3.5-Getting-to-know-Spring-Boot-DevTools.html">
+            
+                    
+                    1.3.5 了解 Spring Boot DevTools
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3.6" data-path="../Chapter-01/1.3-Writing-a-Spring-application/1.3.6-Let's-review.html">
+            
+                <a href="../Chapter-01/1.3-Writing-a-Spring-application/1.3.6-Let's-review.html">
+            
+                    
+                    1.3.6 回顾
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/Introduction.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/Introduction.html">
+            
+                    
+                    1.4  俯瞰 Spring 风景线
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.4.1" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.1-The-core-Spring-Framework.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.1-The-core-Spring-Framework.html">
+            
+                    
+                    1.4.1 Spring 核心框架
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.2" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.2-Spring-Boot.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.2-Spring-Boot.html">
+            
+                    
+                    1.4.2 Spring Boot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.3" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.3-Spring-Data.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.3-Spring-Data.html">
+            
+                    
+                    1.4.3 Spring Data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.4" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.4-Spring-Security.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.4-Spring-Security.html">
+            
+                    
+                    1.4.4 Spring Security
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.5" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.5-Spring-Integration-and-Spring-Batch.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.5-Spring-Integration-and-Spring-Batch.html">
+            
+                    
+                    1.4.5 Spring Integration 和 Spring Batch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.6" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.6-Spring-Cloud.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.6-Spring-Cloud.html">
+            
+                    
+                    1.4.6 Spring Cloud
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4.7" data-path="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.7-Spring-Native.html">
+            
+                <a href="../Chapter-01/1.4-Surveying-the-Spring-landscape/1.4.7-Spring-Native.html">
+            
+                    
+                    1.4.7 Spring Native
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../Chapter-01/1.5-Summary.html">
+            
+                <a href="../Chapter-01/1.5-Summary.html">
+            
+                    
+                    1.5 小结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../Chapter-02/Introduction.html">
+            
+                <a href="../Chapter-02/Introduction.html">
+            
+                    
+                    第 2 章 开发 Web 应用程序
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../Chapter-02/2.1-Displaying-information/Introduction.html">
+            
+                <a href="../Chapter-02/2.1-Displaying-information/Introduction.html">
+            
+                    
+                    2.1 展示信息
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../Chapter-02/2.1-Displaying-information/2.1.1-Establishing-the-domain.html">
+            
+                <a href="../Chapter-02/2.1-Displaying-information/2.1.1-Establishing-the-domain.html">
+            
+                    
+                    2.1.1 建立领域实体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../Chapter-02/2.1-Displaying-information/2.1.2-Creating-a-controller-class.html">
+            
+                <a href="../Chapter-02/2.1-Displaying-information/2.1.2-Creating-a-controller-class.html">
+            
+                    
+                    2.1.2 创建控制器类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.3" data-path="../Chapter-02/2.1-Displaying-information/2.1.3-Designing-the-view.html">
+            
+                <a href="../Chapter-02/2.1-Displaying-information/2.1.3-Designing-the-view.html">
+            
+                    
+                    2.1.3 设计视图
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../Chapter-02/2.2-Processing-form-submission.html">
+            
+                <a href="../Chapter-02/2.2-Processing-form-submission.html">
+            
+                    
+                    2.2 处理表单提交
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../Chapter-02/2.3-Validating-form-input/Introduction.html">
+            
+                <a href="../Chapter-02/2.3-Validating-form-input/Introduction.html">
+            
+                    
+                    2.3 验证表单输入
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.3.1" data-path="../Chapter-02/2.3-Validating-form-input/2.3.1-Declaring-validation-rules.html">
+            
+                <a href="../Chapter-02/2.3-Validating-form-input/2.3.1-Declaring-validation-rules.html">
+            
+                    
+                    2.3.1 声明验证规则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3.2" data-path="../Chapter-02/2.3-Validating-form-input/2.3.2-Performing-validation-at-form-binding.html">
+            
+                <a href="../Chapter-02/2.3-Validating-form-input/2.3.2-Performing-validation-at-form-binding.html">
+            
+                    
+                    2.3.2 在表单绑定时执行验证
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3.3" data-path="../Chapter-02/2.3-Validating-form-input/2.3.3-Displaying-validation-errors.html">
+            
+                <a href="../Chapter-02/2.3-Validating-form-input/2.3.3-Displaying-validation-errors.html">
+            
+                    
+                    2.3.3 显示验证错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../Chapter-02/2.4-Working-with-view-controllers.html">
+            
+                <a href="../Chapter-02/2.4-Working-with-view-controllers.html">
+            
+                    
+                    2.4 使用视图控制器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../Chapter-02/2.5-Choosing-a-view-template-library/Introduction.html">
+            
+                <a href="../Chapter-02/2.5-Choosing-a-view-template-library/Introduction.html">
+            
+                    
+                    2.5 选择视图模板库
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.5.1" data-path="../Chapter-02/2.5-Choosing-a-view-template-library/2.5.1-Caching-templates.html">
+            
+                <a href="../Chapter-02/2.5-Choosing-a-view-template-library/2.5.1-Caching-templates.html">
+            
+                    
+                    2.5.1 缓存模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../Chapter-02/2.6-Summary.html">
+            
+                <a href="../Chapter-02/2.6-Summary.html">
+            
+                    
+                    2.6 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../Chapter-03/Introduction.html">
+            
+                <a href="../Chapter-03/Introduction.html">
+            
+                    
+                    第 3 章 处理数据
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/Introduction.html">
+            
+                <a href="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/Introduction.html">
+            
+                    
+                    3.1 使用 JDBC 读写数据
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.1-Adapting-the-domain-for-persistence.html">
+            
+                <a href="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.1-Adapting-the-domain-for-persistence.html">
+            
+                    
+                    3.1.1 为持久化改造领域实体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.2-Working-with-JdbcTemplate.html">
+            
+                <a href="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.2-Working-with-JdbcTemplate.html">
+            
+                    
+                    3.1.2 使用 JdbcTemplate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.3-Defining-a-schema-and-preloading-data.html">
+            
+                <a href="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.3-Defining-a-schema-and-preloading-data.html">
+            
+                    
+                    3.1.3 定义 schema 并预加载数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.4" data-path="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.4-Inserting-data.html">
+            
+                <a href="../Chapter-03/3.1-Reading-and-writing-data-with-JDBC/3.1.4-Inserting-data.html">
+            
+                    
+                    3.1.4 插入数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/Introduction.html">
+            
+                <a href="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/Introduction.html">
+            
+                    
+                    3.2 使用 Spring Data JDBC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.1-Adding-Spring-Data-JDBC-to-the-build.html">
+            
+                <a href="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.1-Adding-Spring-Data-JDBC-to-the-build.html">
+            
+                    
+                    3.2.1 添加 Spring Data JDBC 到项目构建中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.2-Defining-repository-interfaces.html">
+            
+                <a href="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.2-Defining-repository-interfaces.html">
+            
+                    
+                    3.2.2 定义 Repository 接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.3-Annotating-the-domain-for-persistence.html">
+            
+                <a href="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.3-Annotating-the-domain-for-persistence.html">
+            
+                    
+                    3.2.3 为持久化注解领域实体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.4-Preloading-data-with-CommandLineRunner.html">
+            
+                <a href="../Chapter-03/3.2-Working-with-Spring-Data-JDBC/3.2.4-Preloading-data-with-CommandLineRunner.html">
+            
+                    
+                    3.2.4 使用 CommandLineRunner 预加载数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/Introduction.html">
+            
+                <a href="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/Introduction.html">
+            
+                    
+                    3.3 使用 Spring Data JPA 持久化数据
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.1-Adding-Spring-Data-JPA-to-the-project.html">
+            
+                <a href="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.1-Adding-Spring-Data-JPA-to-the-project.html">
+            
+                    
+                    3.3.1 添加 Spring Data JPA 到工程中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.2-Annotating-the-domain-as-entities.html">
+            
+                <a href="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.2-Annotating-the-domain-as-entities.html">
+            
+                    
+                    3.3.2 注解领域实体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.3-Declaring-JPA-repositories.html">
+            
+                <a href="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.3-Declaring-JPA-repositories.html">
+            
+                    
+                    3.3.3 声明 JPA Repository
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.4-Customizing-repositories.html">
+            
+                <a href="../Chapter-03/3.3-Persisting-data-with-Spring-Data-JPA/3.3.4-Customizing-repositories.html">
+            
+                    
+                    3.3.4 自定义 Repository
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../Chapter-03/3.4-Summary.html">
+            
+                <a href="../Chapter-03/3.4-Summary.html">
+            
+                    
+                    3.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../Chapter-04/Introduction.html">
+            
+                <a href="../Chapter-04/Introduction.html">
+            
+                    
+                    第 4 章 处理非关系型数据
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../Chapter-04/4.1-Working-with-Cassandra-repositories/Introduction.html">
+            
+                <a href="../Chapter-04/4.1-Working-with-Cassandra-repositories/Introduction.html">
+            
+                    
+                    4.1 使用 Cassandra Repository
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.1-Enabling-Spring-Data-Cassandra.html">
+            
+                <a href="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.1-Enabling-Spring-Data-Cassandra.html">
+            
+                    
+                    4.1.1 启用 Spring Data Cassandra
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.2" data-path="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.2-Understanding-Cassandra-data-modeling.html">
+            
+                <a href="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.2-Understanding-Cassandra-data-modeling.html">
+            
+                    
+                    4.1.2 理解 Cassandra 数据模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.3" data-path="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.3-Mapping-domain-types-for-Cassandra-persistence.html">
+            
+                <a href="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.3-Mapping-domain-types-for-Cassandra-persistence.html">
+            
+                    
+                    4.1.3 Cassandra 持久化实体映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.1.4" data-path="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.4-Writing-Cassandra-repositories.html">
+            
+                <a href="../Chapter-04/4.1-Working-with-Cassandra-repositories/4.1.4-Writing-Cassandra-repositories.html">
+            
+                    
+                    4.1.4 编写 Cassandra Repository
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../Chapter-04/4.2-Writing-MongoDB-repositories/Introduction.html">
+            
+                <a href="../Chapter-04/4.2-Writing-MongoDB-repositories/Introduction.html">
+            
+                    
+                    4.2 编写 MongoDB Repository
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.2.1" data-path="../Chapter-04/4.2-Writing-MongoDB-repositories/4.2.1-Enabling-Spring-Data-MongoDB.html">
+            
+                <a href="../Chapter-04/4.2-Writing-MongoDB-repositories/4.2.1-Enabling-Spring-Data-MongoDB.html">
+            
+                    
+                    4.2.1 启用 Spring Data MongonDB
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.2" data-path="../Chapter-04/4.2-Writing-MongoDB-repositories/4.2.2-Mapping-domain-types-to-documents.html">
+            
+                <a href="../Chapter-04/4.2-Writing-MongoDB-repositories/4.2.2-Mapping-domain-types-to-documents.html">
+            
+                    
+                    4.2.2 MongoDB 持久化实体映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2.3" data-path="../Chapter-04/4.2-Writing-MongoDB-repositories/4.2.3-Writing-MongoDB-repository-interfaces.html">
+            
+                <a href="../Chapter-04/4.2-Writing-MongoDB-repositories/4.2.3-Writing-MongoDB-repository-interfaces.html">
+            
+                    
+                    4.2.3 编写  MongoDB Repository 接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../Chapter-04/4.3-Summary.html">
+            
+                <a href="../Chapter-04/4.3-Summary.html">
+            
+                    
+                    4.3 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../Chapter-05/Introduction.html">
+            
+                <a href="../Chapter-05/Introduction.html">
+            
+                    
+                    第 5 章 Spring 安全
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../Chapter-05/5.1-Enabling-Spring-Security.html">
+            
+                <a href="../Chapter-05/5.1-Enabling-Spring-Security.html">
+            
+                    
+                    5.1 启用 Spring Security
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../Chapter-05/5.2-Configuring-authentication/Introduction.html">
+            
+                <a href="../Chapter-05/5.2-Configuring-authentication/Introduction.html">
+            
+                    
+                    5.2 配置身份验证
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.2.1" data-path="../Chapter-05/5.2-Configuring-authentication/5.2.1-In-memory-user-details-service.html">
+            
+                <a href="../Chapter-05/5.2-Configuring-authentication/5.2.1-In-memory-user-details-service.html">
+            
+                    
+                    5.2.1 内存用户详情服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2.2" data-path="../Chapter-05/5.2-Configuring-authentication/5.2.2-Customizing-user-authentication.html">
+            
+                <a href="../Chapter-05/5.2-Configuring-authentication/5.2.2-Customizing-user-authentication.html">
+            
+                    
+                    5.2.2 自定义用户身份验证
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../Chapter-05/5.3-Securing-web-requests/Introduction.html">
+            
+                <a href="../Chapter-05/5.3-Securing-web-requests/Introduction.html">
+            
+                    
+                    5.3 保护 web 请求
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.3.1" data-path="../Chapter-05/5.3-Securing-web-requests/5.3.1-Securing-requests.html">
+            
+                <a href="../Chapter-05/5.3-Securing-web-requests/5.3.1-Securing-requests.html">
+            
+                    
+                    5.3.1 保护请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3.2" data-path="../Chapter-05/5.3-Securing-web-requests/5.3.2-Creating-a-custom-login-page.html">
+            
+                <a href="../Chapter-05/5.3-Securing-web-requests/5.3.2-Creating-a-custom-login-page.html">
+            
+                    
+                    5.3.2 创建自定义登录页面
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3.3" data-path="../Chapter-05/5.3-Securing-web-requests/5.3.3-Enabling-third-party-authentication.html">
+            
+                <a href="../Chapter-05/5.3-Securing-web-requests/5.3.3-Enabling-third-party-authentication.html">
+            
+                    
+                    5.3.3 启用第三方验证
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3.4" data-path="../Chapter-05/5.3-Securing-web-requests/5.3.4-Logging-out.html">
+            
+                <a href="../Chapter-05/5.3-Securing-web-requests/5.3.4-Logging-out.html">
+            
+                    
+                    5.3.4 登出
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3.5" data-path="../Chapter-05/5.3-Securing-web-requests/5.3.5-Preventing-cross-site-request-forgery.html">
+            
+                <a href="../Chapter-05/5.3-Securing-web-requests/5.3.5-Preventing-cross-site-request-forgery.html">
+            
+                    
+                    5.3.5 阻止跨站请求伪造攻击
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.4" data-path="../Chapter-05/5.4-Applying-method-level-security.html">
+            
+                <a href="../Chapter-05/5.4-Applying-method-level-security.html">
+            
+                    
+                    5.4 启用方法级别保护
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.5" data-path="../Chapter-05/5.5-Knowing-your-user.html">
+            
+                <a href="../Chapter-05/5.5-Knowing-your-user.html">
+            
+                    
+                    5.5 了解您的用户
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.6" data-path="../Chapter-05/5.6-Summary.html">
+            
+                <a href="../Chapter-05/5.6-Summary.html">
+            
+                    
+                    5.6 小结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../Chapter-06/Introduction.html">
+            
+                <a href="../Chapter-06/Introduction.html">
+            
+                    
+                    第 6 章 使用配置属性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../Chapter-06/6.1-Fine-tuning-autoconfiguration/Introduction.html">
+            
+                <a href="../Chapter-06/6.1-Fine-tuning-autoconfiguration/Introduction.html">
+            
+                    
+                    6.1 微调自动配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1.1" data-path="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.1-Understanding-Spring’s-environment-abstraction.html">
+            
+                <a href="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.1-Understanding-Spring’s-environment-abstraction.html">
+            
+                    
+                    6.1.1 理解 Spring 环境抽象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.1.2" data-path="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.2-Configuring-a-data-source.html">
+            
+                <a href="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.2-Configuring-a-data-source.html">
+            
+                    
+                    6.1.2 配置数据源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.1.3" data-path="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.3-Configuring-the-embedded-server.html">
+            
+                <a href="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.3-Configuring-the-embedded-server.html">
+            
+                    
+                    6.1.3 配置嵌入式服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.1.4" data-path="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.4-Configuring-logging.html">
+            
+                <a href="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.4-Configuring-logging.html">
+            
+                    
+                    6.1.4 配置日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.1.5" data-path="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.5-Using-special-property-values.html">
+            
+                <a href="../Chapter-06/6.1-Fine-tuning-autoconfiguration/6.1.5-Using-special-property-values.html">
+            
+                    
+                    6.1.5 使用特殊的属性值
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../Chapter-06/6.2-Creating-your-own-configuration-properties/Introduction.html">
+            
+                <a href="../Chapter-06/6.2-Creating-your-own-configuration-properties/Introduction.html">
+            
+                    
+                    6.2 创建自己的配置属性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.2.1" data-path="../Chapter-06/6.2-Creating-your-own-configuration-properties/6.2.1-Defining-configuration-propertiesholders.html">
+            
+                <a href="../Chapter-06/6.2-Creating-your-own-configuration-properties/6.2.1-Defining-configuration-propertiesholders.html">
+            
+                    
+                    6.2.1 定义配置属性持有者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2.2" data-path="../Chapter-06/6.2-Creating-your-own-configuration-properties/6.2.2-Declaring-configuration-property-metadata.html">
+            
+                <a href="../Chapter-06/6.2-Creating-your-own-configuration-properties/6.2.2-Declaring-configuration-property-metadata.html">
+            
+                    
+                    6.2.2 声明配置属性元数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../Chapter-06/6.3-Configuring-with-profiles/Introduction.html">
+            
+                <a href="../Chapter-06/6.3-Configuring-with-profiles/Introduction.html">
+            
+                    
+                    6.3 使用 profile 进行配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.3.1" data-path="../Chapter-06/6.3-Configuring-with-profiles/6.3.1-Defining-profile-specific-properties.html">
+            
+                <a href="../Chapter-06/6.3-Configuring-with-profiles/6.3.1-Defining-profile-specific-properties.html">
+            
+                    
+                    6.3.1 定义特定 profile 的属性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3.2" data-path="../Chapter-06/6.3-Configuring-with-profiles/6.3.2-Activating-profiles.html">
+            
+                <a href="../Chapter-06/6.3-Configuring-with-profiles/6.3.2-Activating-profiles.html">
+            
+                    
+                    6.3.2 激活 profile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3.3" data-path="../Chapter-06/6.3-Configuring-with-profiles/6.3.3-Conditionally-creating-beans-with-profiles.html">
+            
+                <a href="../Chapter-06/6.3-Configuring-with-profiles/6.3.3-Conditionally-creating-beans-with-profiles.html">
+            
+                    
+                    6.3.3 有条件地使用 profile 创建 bean
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../Chapter-06/6.4-Summary.html">
+            
+                <a href="../Chapter-06/6.4-Summary.html">
+            
+                    
+                    6.4 小结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../Chapter-07/Introduction.html">
+            
+                <a href="../Chapter-07/Introduction.html">
+            
+                    
+                    第 7 章 创建 REST 服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../Chapter-07/7.1-Writing-RESTful-controllers/Introduction.html">
+            
+                <a href="../Chapter-07/7.1-Writing-RESTful-controllers/Introduction.html">
+            
+                    
+                    7.1 编写 RESTful 控制器
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1.1" data-path="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.1-Retrieving-data-from-the-server.html">
+            
+                <a href="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.1-Retrieving-data-from-the-server.html">
+            
+                    
+                    7.1.1 从服务器获取数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.1.2" data-path="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.2-Sending-data-to-the-server.html">
+            
+                <a href="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.2-Sending-data-to-the-server.html">
+            
+                    
+                    7.1.2 向服务器发送数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.1.3" data-path="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.3-Updating-data-on-the-server.html">
+            
+                <a href="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.3-Updating-data-on-the-server.html">
+            
+                    
+                    7.1.3 更新服务器上的数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.1.4" data-path="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.4-Deleting-data-from-the-server.html">
+            
+                <a href="../Chapter-07/7.1-Writing-RESTful-controllers/7.1.4-Deleting-data-from-the-server.html">
+            
+                    
+                    7.1.4 删除服务器上的数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../Chapter-07/7.2-Enabling-data-backed-services/Introduction.html">
+            
+                <a href="../Chapter-07/7.2-Enabling-data-backed-services/Introduction.html">
+            
+                    
+                    7.2 启用后端数据服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.2.1" data-path="../Chapter-07/7.2-Enabling-data-backed-services/7.2.1-Adjusting-resource-paths-and-relation-names.html">
+            
+                <a href="../Chapter-07/7.2-Enabling-data-backed-services/7.2.1-Adjusting-resource-paths-and-relation-names.html">
+            
+                    
+                    7.2.1 调整资源路径和关系名称
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2.2" data-path="../Chapter-07/7.2-Enabling-data-backed-services/7.2.2-Paging-and-sorting.html">
+            
+                <a href="../Chapter-07/7.2-Enabling-data-backed-services/7.2.2-Paging-and-sorting.html">
+            
+                    
+                    7.2.2 分页和排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../Chapter-07/7.3-Consuming-REST-services/Introduction.html">
+            
+                <a href="../Chapter-07/7.3-Consuming-REST-services/Introduction.html">
+            
+                    
+                    7.3 使用 REST 服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.3.1" data-path="../Chapter-07/7.3-Consuming-REST-services/7.3.1-GETting-resources.html">
+            
+                <a href="../Chapter-07/7.3-Consuming-REST-services/7.3.1-GETting-resources.html">
+            
+                    
+                    7.3.1 GET 资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.2" data-path="../Chapter-07/7.3-Consuming-REST-services/7.3.2-PUTting-resources.html">
+            
+                <a href="../Chapter-07/7.3-Consuming-REST-services/7.3.2-PUTting-resources.html">
+            
+                    
+                    7.3.2 PUT 资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.3" data-path="../Chapter-07/7.3-Consuming-REST-services/7.3.3-DELETEing-resources.html">
+            
+                <a href="../Chapter-07/7.3-Consuming-REST-services/7.3.3-DELETEing-resources.html">
+            
+                    
+                    7.3.3 DELETE 资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3.4" data-path="../Chapter-07/7.3-Consuming-REST-services/7.3.4-POSTing-resource-data.html">
+            
+                <a href="../Chapter-07/7.3-Consuming-REST-services/7.3.4-POSTing-resource-data.html">
+            
+                    
+                    7.3.4 POST 资源数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../Chapter-07/7.4-Summary.html">
+            
+                <a href="../Chapter-07/7.4-Summary.html">
+            
+                    
+                    7.4 小结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="Introduction.html">
+            
+                <a href="Introduction.html">
+            
+                    
+                    第 8 章 保护 REST 服务
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="8.1-Introducing-OAuth-2.html">
+            
+                <a href="8.1-Introducing-OAuth-2.html">
+            
+                    
+                    8.1 OAuth 2 介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.10.2" data-path="8.2-Creating-an-Authorization-Server.html">
+            
+                <a href="8.2-Creating-an-Authorization-Server.html">
+            
+                    
+                    8.2 创建验证服务器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.3" data-path="8.3-Securing-an-API-with-a-Resource-Server.html">
+            
+                <a href="8.3-Securing-an-API-with-a-Resource-Server.html">
+            
+                    
+                    8.3 利用资源服务器保护 API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.4" data-path="8.4-Developing-the-client.html">
+            
+                <a href="8.4-Developing-the-client.html">
+            
+                    
+                    8.4 开发客户端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.5" data-path="8.5-Summary.html">
+            
+                <a href="8.5-Summary.html">
+            
+                    
+                    8.5 小结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../Chapter-09/Introduction.html">
+            
+                <a href="../Chapter-09/Introduction.html">
+            
+                    
+                    第 9 章 发送异步消息
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1" data-path="../Chapter-09/9.1-Sending-messages-with-JMS/Introduction.html">
+            
+                <a href="../Chapter-09/9.1-Sending-messages-with-JMS/Introduction.html">
+            
+                    
+                    9.1 使用 JMS 发送消息
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.1.1" data-path="../Chapter-09/9.1-Sending-messages-with-JMS/9.1.1-Setting-up-JMS.html">
+            
+                <a href="../Chapter-09/9.1-Sending-messages-with-JMS/9.1.1-Setting-up-JMS.html">
+            
+                    
+                    9.1.1 设置 JMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.2" data-path="../Chapter-09/9.1-Sending-messages-with-JMS/9.1.2-Sending-messages-with-JmsTemplate.html">
+            
+                <a href="../Chapter-09/9.1-Sending-messages-with-JMS/9.1.2-Sending-messages-with-JmsTemplate.html">
+            
+                    
+                    9.1.2 使用 JmsTemplate 发送消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.1.3" data-path="../Chapter-09/9.1-Sending-messages-with-JMS/9.1.3-Receiving-JMS-messages.html">
+            
+                <a href="../Chapter-09/9.1-Sending-messages-with-JMS/9.1.3-Receiving-JMS-messages.html">
+            
+                    
+                    9.1.3 接收 JMS 消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2" data-path="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/Introduction.html">
+            
+                <a href="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/Introduction.html">
+            
+                    
+                    9.2 使用 RabbitMQ 和 AMQP
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.2.1" data-path="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.1-Adding-RabbitMQ-to-Spring.html">
+            
+                <a href="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.1-Adding-RabbitMQ-to-Spring.html">
+            
+                    
+                    9.2.1 添加 RabbitMQ 到 Spring 中
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.2" data-path="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.2-Sending-messages-with-RabbitTemplate.html">
+            
+                <a href="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.2-Sending-messages-with-RabbitTemplate.html">
+            
+                    
+                    9.2.2 使用 RabbitTemplate 发送消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.2.3" data-path="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.3-Receiving-message-from-RabbitMQ.html">
+            
+                <a href="../Chapter-09/9.2-Working-with-RabbitMQ-and-AMQP/9.2.3-Receiving-message-from-RabbitMQ.html">
+            
+                    
+                    9.2.3 从 RabbitMQ 接收消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3" data-path="../Chapter-09/9.3-Messaging-with-Kafka/Introduction.html">
+            
+                <a href="../Chapter-09/9.3-Messaging-with-Kafka/Introduction.html">
+            
+                    
+                    9.3 使用 Kafka 发送消息
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.11.3.1" data-path="../Chapter-09/9.3-Messaging-with-Kafka/9.3.1-Setting-up-Spring-for-Kafka-messaging.html">
+            
+                <a href="../Chapter-09/9.3-Messaging-with-Kafka/9.3.1-Setting-up-Spring-for-Kafka-messaging.html">
+            
+                    
+                    9.3.1 在 Spring 中设置 Kafka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3.2" data-path="../Chapter-09/9.3-Messaging-with-Kafka/9.3.2-Sending-messages-with-KafkaTemplate.html">
+            
+                <a href="../Chapter-09/9.3-Messaging-with-Kafka/9.3.2-Sending-messages-with-KafkaTemplate.html">
+            
+                    
+                    9.3.2 使用 KafkaTemplate 发送消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.3.3" data-path="../Chapter-09/9.3-Messaging-with-Kafka/9.3.3-Writing-Kafka-listeners.html">
+            
+                <a href="../Chapter-09/9.3-Messaging-with-Kafka/9.3.3-Writing-Kafka-listeners.html">
+            
+                    
+                    9.3.3 编写 Kafka 监听器
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11.4" data-path="../Chapter-09/9.4-Summary.html">
+            
+                <a href="../Chapter-09/9.4-Summary.html">
+            
+                    
+                    9.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../Chapter-10/Introduction.html">
+            
+                <a href="../Chapter-10/Introduction.html">
+            
+                    
+                    第 10 章 集成 Spring
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1" data-path="../Chapter-10/10.1-Declaring-a-simple-integration-flow/Introduction.html">
+            
+                <a href="../Chapter-10/10.1-Declaring-a-simple-integration-flow/Introduction.html">
+            
+                    
+                    10.1 声明简单的集成流
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.1.1" data-path="../Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.1-Defining-integration-flows-with-XML.html">
+            
+                <a href="../Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.1-Defining-integration-flows-with-XML.html">
+            
+                    
+                    10.1.1 使用 XML 定义集成流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.2" data-path="../Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.2-Configuring-integration-flows-in-Java.html">
+            
+                <a href="../Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.2-Configuring-integration-flows-in-Java.html">
+            
+                    
+                    10.1.2 在 Java 中配置集成流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.1.3" data-path="../Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.3-Using-Spring-Integration’s-DSL-configuration.html">
+            
+                <a href="../Chapter-10/10.1-Declaring-a-simple-integration-flow/10.1.3-Using-Spring-Integration’s-DSL-configuration.html">
+            
+                    
+                    10.1.3 使用 Spring Integration 的 DSL 配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/Introduction.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/Introduction.html">
+            
+                    
+                    10.2 探索 Spring Integration
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.12.2.1" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.1-Message-channels.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.1-Message-channels.html">
+            
+                    
+                    10.2.1 消息通道
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.2" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.2-Filters.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.2-Filters.html">
+            
+                    
+                    10.2.2 过滤器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.3" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.3-Transformers.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.3-Transformers.html">
+            
+                    
+                    10.2.3 转换器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.4" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.4-Routers.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.4-Routers.html">
+            
+                    
+                    10.2.4 路由
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.5" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.5-Splitters.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.5-Splitters.html">
+            
+                    
+                    10.2.5 分割器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.6" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.6-Service-activators.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.6-Service-activators.html">
+            
+                    
+                    10.2.6 服务激活器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.7" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.7-Gateways.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.7-Gateways.html">
+            
+                    
+                    10.2.7 网关
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.8" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.8-Channel-adapters.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.8-Channel-adapters.html">
+            
+                    
+                    10.2.8 通道适配器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.2.9" data-path="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.9-Endpoint-modules.html">
+            
+                <a href="../Chapter-10/10.2-Surveying-the-Spring-Integration-landscape/10.2.9-Endpoint-modules.html">
+            
+                    
+                    10.2.9 端点模块
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.3" data-path="../Chapter-10/10.3-Creating-an-email-integration-flow.html">
+            
+                <a href="../Chapter-10/10.3-Creating-an-email-integration-flow.html">
+            
+                    
+                    10.3 创建 Email 集成流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12.4" data-path="../Chapter-10/10.4-Summary.html">
+            
+                <a href="../Chapter-10/10.4-Summary.html">
+            
+                    
+                    10.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../Chapter-11/Introduction.html">
+            
+                <a href="../Chapter-11/Introduction.html">
+            
+                    
+                    第 11 章 Reactor 介绍
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1" data-path="../Chapter-11/11.1-Understanding-reactive-programming/Introduction.html">
+            
+                <a href="../Chapter-11/11.1-Understanding-reactive-programming/Introduction.html">
+            
+                    
+                    11.1 理解响应式编程
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.1.1" data-path="../Chapter-11/11.1-Understanding-reactive-programming/11.1.1-Defining-Reactive-Streams.html">
+            
+                <a href="../Chapter-11/11.1-Understanding-reactive-programming/11.1.1-Defining-Reactive-Streams.html">
+            
+                    
+                    11.1.1 定义响应式流
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2" data-path="../Chapter-11/11.2-Getting-started-with-Reactor/Introduction.html">
+            
+                <a href="../Chapter-11/11.2-Getting-started-with-Reactor/Introduction.html">
+            
+                    
+                    11.2 使用 Reactor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.2.1" data-path="../Chapter-11/11.2-Getting-started-with-Reactor/11.2.1-Diagramming-reactive-flows.html">
+            
+                <a href="../Chapter-11/11.2-Getting-started-with-Reactor/11.2.1-Diagramming-reactive-flows.html">
+            
+                    
+                    11.2.1 图解响应式流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.2.2" data-path="../Chapter-11/11.2-Getting-started-with-Reactor/11.2.2-Adding-Reactor-dependencies.html">
+            
+                <a href="../Chapter-11/11.2-Getting-started-with-Reactor/11.2.2-Adding-Reactor-dependencies.html">
+            
+                    
+                    11.2.2 添加 Reactor 依赖
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3" data-path="../Chapter-11/11.3-Applying-common-reactive-operations/Introduction.html">
+            
+                <a href="../Chapter-11/11.3-Applying-common-reactive-operations/Introduction.html">
+            
+                    
+                    11.3 通用响应式操作实战
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.13.3.1" data-path="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.1-Creating-reactive-types.html">
+            
+                <a href="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.1-Creating-reactive-types.html">
+            
+                    
+                    11.3.1 创建响应式类型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.2" data-path="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.2-Combining-reactive-types.html">
+            
+                <a href="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.2-Combining-reactive-types.html">
+            
+                    
+                    11.3.2 响应式类型结合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.3" data-path="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.3-Transforming-and-filtering-reactive-streams.html">
+            
+                <a href="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.3-Transforming-and-filtering-reactive-streams.html">
+            
+                    
+                    11.3.3 转换和过滤响应式流
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.3.4" data-path="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.4-Performing-logic-operations-on-reactive-types.html">
+            
+                <a href="../Chapter-11/11.3-Applying-common-reactive-operations/11.3.4-Performing-logic-operations-on-reactive-types.html">
+            
+                    
+                    11.3.4 对响应类型执行逻辑操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13.4" data-path="../Chapter-11/11.4-Summary.html">
+            
+                <a href="../Chapter-11/11.4-Summary.html">
+            
+                    
+                    11.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../Chapter-12/Introduction.html">
+            
+                <a href="../Chapter-12/Introduction.html">
+            
+                    
+                    第 12 章 开发响应式 API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="../Chapter-12/12.1-Working-with-Spring-WebFlux/Introduction.html">
+            
+                <a href="../Chapter-12/12.1-Working-with-Spring-WebFlux/Introduction.html">
+            
+                    
+                    12.1 使用 Spring WebFlux
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1.1" data-path="../Chapter-12/12.1-Working-with-Spring-WebFlux/12.1.1-Introducing-Spring-WebFlux.html">
+            
+                <a href="../Chapter-12/12.1-Working-with-Spring-WebFlux/12.1.1-Introducing-Spring-WebFlux.html">
+            
+                    
+                    12.1.1 Spring WebFlux 介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.1.2" data-path="../Chapter-12/12.1-Working-with-Spring-WebFlux/12.1.2-Writing-reactive-controllers.html">
+            
+                <a href="../Chapter-12/12.1-Working-with-Spring-WebFlux/12.1.2-Writing-reactive-controllers.html">
+            
+                    
+                    12.1.2 编写响应式 Controller
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.2" data-path="../Chapter-12/12.2-Defining-functional-request-handlers.html">
+            
+                <a href="../Chapter-12/12.2-Defining-functional-request-handlers.html">
+            
+                    
+                    12.2 定义函数式请求处理程序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3" data-path="../Chapter-12/12.3-Testing-reactive-controllers/Introduction.html">
+            
+                <a href="../Chapter-12/12.3-Testing-reactive-controllers/Introduction.html">
+            
+                    
+                    12.3 测试响应式 Controller
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.3.1" data-path="../Chapter-12/12.3-Testing-reactive-controllers/12.3.1-Testing-GET-requests.html">
+            
+                <a href="../Chapter-12/12.3-Testing-reactive-controllers/12.3.1-Testing-GET-requests.html">
+            
+                    
+                    12.3.1 测试 GET 请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.2" data-path="../Chapter-12/12.3-Testing-reactive-controllers/12.3.2-Testing-POST-requests.html">
+            
+                <a href="../Chapter-12/12.3-Testing-reactive-controllers/12.3.2-Testing-POST-requests.html">
+            
+                    
+                    12.3.2 测试 POST 请求
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.3.3" data-path="../Chapter-12/12.3-Testing-reactive-controllers/12.3.3-Testing-with-a-live-server.html">
+            
+                <a href="../Chapter-12/12.3-Testing-reactive-controllers/12.3.3-Testing-with-a-live-server.html">
+            
+                    
+                    12.3.3 使用线上服务器进行测试
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4" data-path="../Chapter-12/12.4-Consuming-REST-APIs-reactively/Introduction.html">
+            
+                <a href="../Chapter-12/12.4-Consuming-REST-APIs-reactively/Introduction.html">
+            
+                    
+                    12.4 响应式消费 REST API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.4.1" data-path="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.1-GETting-resources.html">
+            
+                <a href="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.1-GETting-resources.html">
+            
+                    
+                    12.4.1 获取资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4.2" data-path="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.2-Sending-resources.html">
+            
+                <a href="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.2-Sending-resources.html">
+            
+                    
+                    12.4.2 发送资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4.3" data-path="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.3-Deleting-resources.html">
+            
+                <a href="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.3-Deleting-resources.html">
+            
+                    
+                    12.4.3 删除资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4.4" data-path="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.4-Handling-errors.html">
+            
+                <a href="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.4-Handling-errors.html">
+            
+                    
+                    12.4.4 处理错误
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.4.5" data-path="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.5-Exchanging-requests.html">
+            
+                <a href="../Chapter-12/12.4-Consuming-REST-APIs-reactively/12.4.5-Exchanging-requests.html">
+            
+                    
+                    12.4.5 请求转换
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5" data-path="../Chapter-12/12.5-Securing-reactive-web-APIs/Introduction.html">
+            
+                <a href="../Chapter-12/12.5-Securing-reactive-web-APIs/Introduction.html">
+            
+                    
+                    12.5 保护响应式 web API
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.5.1" data-path="../Chapter-12/12.5-Securing-reactive-web-APIs/12.5.1-Configuring-reactive-web-security.html">
+            
+                <a href="../Chapter-12/12.5-Securing-reactive-web-APIs/12.5.1-Configuring-reactive-web-security.html">
+            
+                    
+                    12.5.1 配置响应式 Web 安全
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.5.2" data-path="../Chapter-12/12.5-Securing-reactive-web-APIs/12.5.2-Configuring-a-reactive-user-details-service.html">
+            
+                <a href="../Chapter-12/12.5-Securing-reactive-web-APIs/12.5.2-Configuring-a-reactive-user-details-service.html">
+            
+                    
+                    12.5.2 配置响应式用户信息服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14.6" data-path="../Chapter-12/12.6-Summary.html">
+            
+                <a href="../Chapter-12/12.6-Summary.html">
+            
+                    
+                    12.6 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../Chapter-13/Introduction.html">
+            
+                <a href="../Chapter-13/Introduction.html">
+            
+                    
+                    第 13 章 响应式持久化数据
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="../Chapter-13/13.1-Working-with-R2DBC/Introduction.html">
+            
+                <a href="../Chapter-13/13.1-Working-with-R2DBC/Introduction.html">
+            
+                    
+                    13.1 使用 R2DBC
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1.1" data-path="../Chapter-13/13.1-Working-with-R2DBC/13.1.1-Defining-domain-entities-for-R2DBC.html">
+            
+                <a href="../Chapter-13/13.1-Working-with-R2DBC/13.1.1-Defining-domain-entities-for-R2DBC.html">
+            
+                    
+                    13.1.1 为 R2DBC 定义实体
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.1.2" data-path="../Chapter-13/13.1-Working-with-R2DBC/13.1.2-Defining-reactive-repositories.html">
+            
+                <a href="../Chapter-13/13.1-Working-with-R2DBC/13.1.2-Defining-reactive-repositories.html">
+            
+                    
+                    13.1.2 定义响应式 Repository 
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.1.3" data-path="../Chapter-13/13.1-Working-with-R2DBC/13.1.3-Testing-R2DBC-repositories.html">
+            
+                <a href="../Chapter-13/13.1-Working-with-R2DBC/13.1.3-Testing-R2DBC-repositories.html">
+            
+                    
+                    13.1.3 测试 R2DBC  Repository 
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.1.4" data-path="../Chapter-13/13.1-Working-with-R2DBC/13.1.4-Defining-an-OrderRepository-aggregate-root-service.html">
+            
+                <a href="../Chapter-13/13.1-Working-with-R2DBC/13.1.4-Defining-an-OrderRepository-aggregate-root-service.html">
+            
+                    
+                    13.1.4 定义 OrderRepository 聚合根服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2" data-path="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/Introduction.html">
+            
+                <a href="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/Introduction.html">
+            
+                    
+                    13.2 使用 MongoDB 响应式保存文档
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.2.1" data-path="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/13.2.1-Defining-domain-document-types.html">
+            
+                <a href="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/13.2.1-Defining-domain-document-types.html">
+            
+                    
+                    13.2.1 定义文档类型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2.2" data-path="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/13.2.2-Defining-reactive-MongoDB-repositories.html">
+            
+                <a href="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/13.2.2-Defining-reactive-MongoDB-repositories.html">
+            
+                    
+                    13.2.2 定义响应式 MongoDB  Repository 
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.2.3" data-path="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/13.2.3-Testing-reactive-MongoDB-repositories.html">
+            
+                <a href="../Chapter-13/13.2-Persisting-document-data-reactively-with-MongoDB/13.2.3-Testing-reactive-MongoDB-repositories.html">
+            
+                    
+                    13.2.3 测试响应式 MongoDB  Repository 
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3" data-path="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/Introduction.html">
+            
+                <a href="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/Introduction.html">
+            
+                    
+                    13.3 使用 Cassandra 响应式保存数据
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.3.1" data-path="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/13.3.1-Defining-domain-classes-for-Cassandra-persistence.html">
+            
+                <a href="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/13.3.1-Defining-domain-classes-for-Cassandra-persistence.html">
+            
+                    
+                    13.2.1 为 Cassandra 定义实体类
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3.2" data-path="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/13.3.2-Creating-reactive-Cassandra-repositories.html">
+            
+                <a href="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/13.3.2-Creating-reactive-Cassandra-repositories.html">
+            
+                    
+                    13.2.2 创建响应式 Cassandra  Repository 
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.3.3" data-path="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/13.3.3-Testing-reactive-Cassandra-repositories.html">
+            
+                <a href="../Chapter-13/13.3-Reactively-persisting-data-in-Cassandra/13.3.3-Testing-reactive-Cassandra-repositories.html">
+            
+                    
+                    13.2.3 测试响应式 Cassandra  Repository 
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15.4" data-path="../Chapter-13/13.4-Summary.html">
+            
+                <a href="../Chapter-13/13.4-Summary.html">
+            
+                    
+                    13.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../Chapter-14/Introduction.html">
+            
+                <a href="../Chapter-14/Introduction.html">
+            
+                    
+                    第 14 章 使用 RSocket
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="../Chapter-14/14.1-Introducing-RSocket.html">
+            
+                <a href="../Chapter-14/14.1-Introducing-RSocket.html">
+            
+                    
+                    14.1 介绍 RSocket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/Introduction.html">
+            
+                <a href="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/Introduction.html">
+            
+                    
+                    14.2 创建一个简单的 RSocket 服务端和客户端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.2.1" data-path="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.1-Working-with-Request-Response.html">
+            
+                <a href="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.1-Working-with-Request-Response.html">
+            
+                    
+                    14.2.1 使用 请求/响应 模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.2" data-path="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.2-Handling-request-stream-messaging.html">
+            
+                <a href="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.2-Handling-request-stream-messaging.html">
+            
+                    
+                    14.2.2 处理 请求/流 消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.3" data-path="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.3-Sending-Fire-and-Forget-messages.html">
+            
+                <a href="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.3-Sending-Fire-and-Forget-messages.html">
+            
+                    
+                    14.2.3 发送 即发即忘 消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2.4" data-path="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.4-Sending-messages-bidirectionally.html">
+            
+                <a href="../Chapter-14/14.2-Creating-a-simple-RSocket-server-and-client/14.2.4-Sending-messages-bidirectionally.html">
+            
+                    
+                    14.2.4 双向发送消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="../Chapter-14/14.3-Transporting-RSocket-over-WebSocket.html">
+            
+                <a href="../Chapter-14/14.3-Transporting-RSocket-over-WebSocket.html">
+            
+                    
+                    14.3 在 WebSocket 上进行 RSocket 传输
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="../Chapter-14/14.4-Summary.html">
+            
+                <a href="../Chapter-14/14.4-Summary.html">
+            
+                    
+                    14.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="../Chapter-15/Introduction.html">
+            
+                <a href="../Chapter-15/Introduction.html">
+            
+                    
+                    第 15 章 使用 Spring Boot Actuator
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="../Chapter-15/15.1-Introducing-Actuator/Introduction.html">
+            
+                <a href="../Chapter-15/15.1-Introducing-Actuator/Introduction.html">
+            
+                    
+                    15.1 介绍 Actuator
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1.1" data-path="../Chapter-15/15.1-Introducing-Actuator/15.1.1-Configuring-Actuator's-base-path.html">
+            
+                <a href="../Chapter-15/15.1-Introducing-Actuator/15.1.1-Configuring-Actuator's-base-path.html">
+            
+                    
+                    15.1.1 配置 Actuator 基本路径
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.1.2" data-path="../Chapter-15/15.1-Introducing-Actuator/15.1.2-Enabling-and-disabling-Actuator-endpoints.html">
+            
+                <a href="../Chapter-15/15.1-Introducing-Actuator/15.1.2-Enabling-and-disabling-Actuator-endpoints.html">
+            
+                    
+                    15.1.2 启用和禁用 Actuator 端点
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="../Chapter-15/15.2-Consuming-Actuator-endpoints/Introduction.html">
+            
+                <a href="../Chapter-15/15.2-Consuming-Actuator-endpoints/Introduction.html">
+            
+                    
+                    15.2 使用 Actuator 端点
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.2.1" data-path="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.1-Fetching-essential-application-information.html">
+            
+                <a href="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.1-Fetching-essential-application-information.html">
+            
+                    
+                    15.2.1 获取重要的应用程序信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2.2" data-path="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.2-Viewing-configuration-details.html">
+            
+                <a href="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.2-Viewing-configuration-details.html">
+            
+                    
+                    15.2.2 查看配置详细信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2.3" data-path="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.3-Viewing-application-activity.html">
+            
+                <a href="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.3-Viewing-application-activity.html">
+            
+                    
+                    15.2.3 查看应用程序活动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2.4" data-path="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.4-Tapping-runtime-metrics.html">
+            
+                <a href="../Chapter-15/15.2-Consuming-Actuator-endpoints/15.2.4-Tapping-runtime-metrics.html">
+            
+                    
+                    15.2.4 利用运行时指标
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="../Chapter-15/15.3-Customizing-Actuator/Introduction.html">
+            
+                <a href="../Chapter-15/15.3-Customizing-Actuator/Introduction.html">
+            
+                    
+                    15.3 自定义 Actuator
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.3.1" data-path="../Chapter-15/15.3-Customizing-Actuator/15.3.1-Contributing-information-to-the-info-endpoint.html">
+            
+                <a href="../Chapter-15/15.3-Customizing-Actuator/15.3.1-Contributing-information-to-the-info-endpoint.html">
+            
+                    
+                    15.3.1 向 /info 端点提供信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.2" data-path="../Chapter-15/15.3-Customizing-Actuator/15.3.2-Defining-custom-health-indicators.html">
+            
+                <a href="../Chapter-15/15.3-Customizing-Actuator/15.3.2-Defining-custom-health-indicators.html">
+            
+                    
+                    15.3.2 自定义健康指标
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.3" data-path="../Chapter-15/15.3-Customizing-Actuator/15.3.3-Registering-custom-metrics.html">
+            
+                <a href="../Chapter-15/15.3-Customizing-Actuator/15.3.3-Registering-custom-metrics.html">
+            
+                    
+                    15.3.3 注册自定义指标
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3.4" data-path="../Chapter-15/15.3-Customizing-Actuator/15.3.4-Creating-custom-endpoints.html">
+            
+                <a href="../Chapter-15/15.3-Customizing-Actuator/15.3.4-Creating-custom-endpoints.html">
+            
+                    
+                    15.3.4 创建自定义端点
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.4" data-path="../Chapter-15/15.4-Securing-Actuator.html">
+            
+                <a href="../Chapter-15/15.4-Securing-Actuator.html">
+            
+                    
+                    15.4 保护 Actuator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5" data-path="../Chapter-15/15.5-Summary.html">
+            
+                <a href="../Chapter-15/15.5-Summary.html">
+            
+                    
+                    15.5 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../Chapter-16/Introduction.html">
+            
+                <a href="../Chapter-16/Introduction.html">
+            
+                    
+                    第 16 章 管理 Spring
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1" data-path="../Chapter-16/16.1-Using-Spring-Boot-Admin/Introduction.html">
+            
+                <a href="../Chapter-16/16.1-Using-Spring-Boot-Admin/Introduction.html">
+            
+                    
+                    16.1 使用 SpringBoot Admin
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.1.1" data-path="../Chapter-16/16.1-Using-Spring-Boot-Admin/16.1.1-Creating-an-Admin-server.html">
+            
+                <a href="../Chapter-16/16.1-Using-Spring-Boot-Admin/16.1.1-Creating-an-Admin-server.html">
+            
+                    
+                    16.1.1 创建 Admin 服务端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.1.2" data-path="../Chapter-16/16.1-Using-Spring-Boot-Admin/16.1.2-Registering-Admin-clients.html">
+            
+                <a href="../Chapter-16/16.1-Using-Spring-Boot-Admin/16.1.2-Registering-Admin-clients.html">
+            
+                    
+                    16.1.2 注册 Admin 客户端
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2" data-path="../Chapter-16/16.2-Exploring-the-Admin-server/Introduction.html">
+            
+                <a href="../Chapter-16/16.2-Exploring-the-Admin-server/Introduction.html">
+            
+                    
+                    16.2 深入 Admin 服务端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.2.1" data-path="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.1-Viewing-general-application-health-and-information.html">
+            
+                <a href="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.1-Viewing-general-application-health-and-information.html">
+            
+                    
+                    16.2.1 查看普通应用程序运行状况和信息
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2.2" data-path="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.2-Watching-key-metrics.html">
+            
+                <a href="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.2-Watching-key-metrics.html">
+            
+                    
+                    16.2.2 观察关键指标
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2.3" data-path="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.3-Examining-environment-properties.html">
+            
+                <a href="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.3-Examining-environment-properties.html">
+            
+                    
+                    16.2.3 检查环境属性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.2.4" data-path="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.4-Viewing-and-setting-logging-levels.html">
+            
+                <a href="../Chapter-16/16.2-Exploring-the-Admin-server/16.2.4-Viewing-and-setting-logging-levels.html">
+            
+                    
+                    16.2.4 查看并设置 log 级别
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.3" data-path="../Chapter-16/16.3-Securing-the-Admin-server/Introduction.html">
+            
+                <a href="../Chapter-16/16.3-Securing-the-Admin-server/Introduction.html">
+            
+                    
+                    16.3 保护 Admin 服务端
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.18.3.1" data-path="../Chapter-16/16.3-Securing-the-Admin-server/16.3.1-Enabling-login-in-the-Admin-server.html">
+            
+                <a href="../Chapter-16/16.3-Securing-the-Admin-server/16.3.1-Enabling-login-in-the-Admin-server.html">
+            
+                    
+                    16.3.1 在 Admin 服务端中启用登录
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.3.2" data-path="../Chapter-16/16.3-Securing-the-Admin-server/16.3.2-Authenticating-with-the-Actuator.html">
+            
+                <a href="../Chapter-16/16.3-Securing-the-Admin-server/16.3.2-Authenticating-with-the-Actuator.html">
+            
+                    
+                    16.3.2 使用 Actuator 进行认证
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18.4" data-path="../Chapter-16/16.4-Summary.html">
+            
+                <a href="../Chapter-16/16.4-Summary.html">
+            
+                    
+                    16.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../Chapter-17/Introduction.html">
+            
+                <a href="../Chapter-17/Introduction.html">
+            
+                    
+                    第 17 章 使用 JMX 监控 Spring
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.19.1" data-path="../Chapter-17/17.1-Working-with-Actuator-MBeans.html">
+            
+                <a href="../Chapter-17/17.1-Working-with-Actuator-MBeans.html">
+            
+                    
+                    17.1 使用 Actuator MBean
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.2" data-path="../Chapter-17/17.2-Creating-your-own-MBeans.html">
+            
+                <a href="../Chapter-17/17.2-Creating-your-own-MBeans.html">
+            
+                    
+                    17.2 创建自己的 MBean
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.3" data-path="../Chapter-17/17.3-Sending-notifications.html">
+            
+                <a href="../Chapter-17/17.3-Sending-notifications.html">
+            
+                    
+                    17.3 发送通知
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19.4" data-path="../Chapter-17/17.4-Summary.html">
+            
+                <a href="../Chapter-17/17.4-Summary.html">
+            
+                    
+                    17.4 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="../Chapter-18/Introduction.html">
+            
+                <a href="../Chapter-18/Introduction.html">
+            
+                    
+                    第 18 章 部署 Spring
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.1" data-path="../Chapter-18/18.1-Weighing-deployment-options.html">
+            
+                <a href="../Chapter-18/18.1-Weighing-deployment-options.html">
+            
+                    
+                    18.1 权衡部署选项
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.2" data-path="../Chapter-18/18.2-Building-executable-JAR-files.html">
+            
+                <a href="../Chapter-18/18.2-Building-executable-JAR-files.html">
+            
+                    
+                    18.2 构建可执行 JAR 文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3" data-path="../Chapter-18/18.3-Building-container-images/Introduction.html">
+            
+                <a href="../Chapter-18/18.3-Building-container-images/Introduction.html">
+            
+                    
+                    18.3 构建容器镜像
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.3.1" data-path="../Chapter-18/18.3-Building-container-images/18.3.1-Deploying-to-Kubernetes.html">
+            
+                <a href="../Chapter-18/18.3-Building-container-images/18.3.1-Deploying-to-Kubernetes.html">
+            
+                    
+                    18.3.1 部署到 Kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3.2" data-path="../Chapter-18/18.3-Building-container-images/18.3.2-Enabling-graceful-shutdown.html">
+            
+                <a href="../Chapter-18/18.3-Building-container-images/18.3.2-Enabling-graceful-shutdown.html">
+            
+                    
+                    18.3.2 启用优雅关闭
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.3.3" data-path="../Chapter-18/18.3-Building-container-images/18.3.3-Working-with-application-liveness-and-readiness.html">
+            
+                <a href="../Chapter-18/18.3-Building-container-images/18.3.3-Working-with-application-liveness-and-readiness.html">
+            
+                    
+                    18.3.3 应用存活性和可用性
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.4" data-path="../Chapter-18/18.4-Building-and-deploying-WAR-files.html">
+            
+                <a href="../Chapter-18/18.4-Building-and-deploying-WAR-files.html">
+            
+                    
+                    18.4 构建并部署 WAR 文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.5" data-path="../Chapter-18/18.5-The-end-is-where-we-begin.html">
+            
+                <a href="../Chapter-18/18.5-The-end-is-where-we-begin.html">
+            
+                    
+                    18.5 终章
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.6" data-path="../Chapter-18/18.6-Summary.html">
+            
+                <a href="../Chapter-18/18.6-Summary.html">
+            
+                    
+                    18.6 总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >8.2 创建验证服务器</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="82-&#x521B;&#x5EFA;&#x9A8C;&#x8BC1;&#x670D;&#x52A1;&#x5668;">8.2 &#x521B;&#x5EFA;&#x9A8C;&#x8BC1;&#x670D;&#x52A1;&#x5668;</h2>
+<p>&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5DE5;&#x4F5C;&#x4E3B;&#x8981;&#x662F;&#x4EE3;&#x8868;&#x7528;&#x6237;&#x53D1;&#x51FA;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x3002;&#x50CF;&#x524D;&#x9762;&#x63D0;&#x5230;&#x8FC7;&#xFF0C;&#x6709;&#x51E0;&#x79CD;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x5B9E;&#x73B0;&#x53EF;&#x4F9B;&#x9009;&#x62E9;&#x3002;&#x4F46;&#x662F;&#x6211;&#x4EEC;&#x5C06;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x4F7F;&#x7528; Spring Authorization Server&#x3002;Spring Authorization Server &#x662F;&#x5B9E;&#x9A8C;&#x6027;&#x7684;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#x6240;&#x6709;&#x7684; OAuth 2 &#x6388;&#x6743;&#x7C7B;&#x578B;&#xFF0C;&#x4F46;&#x5B83;&#x786E;&#x5B9E;&#x5B9E;&#x73B0;&#x4E86;&#x6388;&#x6743; Code &#x6388;&#x4E88;&#x548C;&#x5BA2;&#x6237;&#x7AEF;&#x51ED;&#x636E;&#x6388;&#x4E88;&#x3002;</p>
+<p>&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x662F;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x5E94;&#x8BE5;&#x7A0B;&#x5E8F;&#xFF0C;&#x4E0D;&#x540C;&#x4E8E;&#x63D0;&#x4F9B; API &#x7684;&#x670D;&#x52A1;&#xFF0C;&#x4E5F;&#x6709;&#x522B;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x8981;&#x5F00;&#x59CB;&#x4F7F;&#x7528;Authorization Server&#xFF0C;&#x60A8;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684; Spring Boot &#x9879;&#x76EE;&#xFF0C;&#x9009;&#x62E9;&#xFF08;&#x81F3;&#x5C11;&#xFF09;web &#x548C; security starter&#x3002;&#x5BF9;&#x4E8E;&#x6211;&#x4EEC;&#x7684;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x7528;&#x6237;&#x5C06;&#x4F7F;&#x7528; JPA &#x5B58;&#x50A8;&#x5728;&#x5173;&#x7CFB;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#xFF0C;&#x56E0;&#x6B64;&#x8BF7;&#x786E;&#x4FDD;&#x6DFB;&#x52A0; JPA starter &#x548C; H2 &#x4F9D;&#x8D56;&#x3002;&#x5982;&#x679C;&#x60A8;&#x7528; Lombok &#x6765;&#x5904;&#x7406; getter&#xFF0C;setter&#x3001;constructor &#x7B49;&#x7B49;&#xFF0C;&#x786E;&#x4FDD;&#x4E5F;&#x5305;&#x62EC;&#x5B83;&#x3002;</p>
+<p>Spring Authorization Server&#xFF08;&#x5C1A;&#x672A;&#xFF09;&#x4F5C;&#x4E3A; Initializr &#x8BBE;&#x5B9A;&#x9879;&#x63D0;&#x4F9B;&#x3002;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x60A8;&#x7684;&#x9879;&#x76EE;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#xFF0C;&#x60A8;&#x9700;&#x8981;&#x624B;&#x52A8;&#x6DFB;&#x52A0; Spring Authorization Server &#x4F9D;&#x8D56;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x8FD9;&#x91CC;&#x662F; pom.xml &#x6587;&#x4EF6;&#x4E2D;&#x60A8;&#x9700;&#x8981;&#x5305;&#x542B;&#x7684; Maven &#x4F9D;&#x8D56;&#x9879;&#xFF1A;</p>
+<pre class="language-"><code class="lang-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.security.experimental<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-security-oauth2-authorization-server<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>0.1.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>&#x4E0B;&#x4E00;&#x6B65;&#xFF0C;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x5C06;&#x5728;&#x5F00;&#x53D1;&#x673A;&#x5668;&#x4E0A;&#x8FD0;&#x884C;&#x6240;&#x6709;&#x8FD9;&#x4E9B;&#x7A0B;&#x5E8F;&#xFF08;&#x81F3;&#x5C11;&#x73B0;&#x5728;&#x662F;&#x8FD9;&#x6837;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;&#x60A8;&#x9700;&#x8981;&#x786E;&#x4FDD;&#x4E3B; Taco Cloud &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x548C;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x6CA1;&#x6709;&#x7AEF;&#x53E3;&#x51B2;&#x7A81;&#x3002;&#x5C06;&#x4EE5;&#x4E0B;&#x6761;&#x76EE;&#x6DFB;&#x52A0;&#x5230;&#x9879;&#x76EE;&#x7684; application.yml &#x6587;&#x4EF6;&#xFF0C;&#x5C06;&#x4F7F;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x8FD0;&#x884C;&#x5728;&#x7AEF;&#x53E3; 9000 &#x4E0A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">9000</span>
+</code></pre>
+<p>&#x73B0;&#x5728;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x6DF1;&#x5165;&#x4E86;&#x89E3;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x4F7F;&#x7528;&#x7684;&#x57FA;&#x672C;&#x5B89;&#x5168;&#x914D;&#x7F6E;&#x3002;&#x6E05;&#x5355; 8.2 &#x663E;&#x793A;&#x4E86;&#x4E00;&#x4E2A;&#x975E;&#x5E38;&#x7B80;&#x5355;&#x7684; Spring &#x5B89;&#x5168;&#x914D;&#x7F6E;&#x7C7B;&#xFF0C;&#x5B83;&#x652F;&#x6301;&#x57FA;&#x4E8E;&#x8868;&#x5355;&#x7684;&#x767B;&#x5F55;&#xFF0C;&#x5E76;&#x8981;&#x6C42;&#x5BF9;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x8FDB;&#x884C;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#x3002;</p>
+<p><strong>&#x7A0B;&#x5E8F;&#x6E05;&#x5355; 8.2 &#x57FA;&#x4E8E;&#x8868;&#x5355;&#x767B;&#x5F55;&#x7684;&#x57FA;&#x672C;&#x5B89;&#x5168;&#x914D;&#x7F6E;&#x3002;</strong></p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">package</span> <span class="token namespace">tacos<span class="token punctuation">.</span>authorization</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>web<span class="token punctuation">.</span>builders<span class="token punctuation">.</span></span>
+              <span class="token class-name">HttpSecurity</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>web<span class="token punctuation">.</span>configuration<span class="token punctuation">.</span></span>
+              <span class="token class-name">EnableWebSecurity</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>userdetails<span class="token punctuation">.</span></span><span class="token class-name">UserDetailsService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>crypto<span class="token punctuation">.</span>bcrypt<span class="token punctuation">.</span></span><span class="token class-name">BCryptPasswordEncoder</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>crypto<span class="token punctuation">.</span>password<span class="token punctuation">.</span></span><span class="token class-name">PasswordEncoder</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>web<span class="token punctuation">.</span></span><span class="token class-name">SecurityFilterChain</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">tacos<span class="token punctuation">.</span>authorization<span class="token punctuation">.</span>users<span class="token punctuation">.</span></span><span class="token class-name">UserRepository</span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@EnableWebSecurity</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SecurityConfig</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@Bean</span>
+  <span class="token class-name">SecurityFilterChain</span> <span class="token function">defaultSecurityFilterChain</span><span class="token punctuation">(</span><span class="token class-name">HttpSecurity</span> http<span class="token punctuation">)</span>
+          <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> http
+      <span class="token punctuation">.</span><span class="token function">authorizeRequests</span><span class="token punctuation">(</span>authorizeRequests <span class="token operator">-&gt;</span>
+          authorizeRequests<span class="token punctuation">.</span><span class="token function">anyRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">)</span>
+
+      <span class="token punctuation">.</span><span class="token function">formLogin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+      <span class="token punctuation">.</span><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Bean</span>
+  <span class="token class-name">UserDetailsService</span> <span class="token function">userDetailsService</span><span class="token punctuation">(</span><span class="token class-name">UserRepository</span> userRepo<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> username <span class="token operator">-&gt;</span> userRepo<span class="token punctuation">.</span><span class="token function">findByUsername</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Bean</span>
+  <span class="token keyword">public</span> <span class="token class-name">PasswordEncoder</span> <span class="token function">passwordEncoder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BCryptPasswordEncoder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6CE8;&#x610F;&#xFF0C;UserDetailsService &#x4E0E; TacoUserRepository &#x4E00;&#x8D77;&#x5DE5;&#x4F5C;&#xFF0C;&#x901A;&#x8FC7;&#x7528;&#x6237;&#x7684;&#x7528;&#x6237;&#x540D;&#x67E5;&#x627E;&#x7528;&#x6237;&#x3002;&#x4E3A;&#x4E86;&#x53EA;&#x5173;&#x6CE8;&#x914D;&#x7F6E;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x672C;&#x8EAB;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x8DF3;&#x8FC7;&#x6709;&#x5173; TacoUserRepository &#x7684;&#x7EC6;&#x8282;&#xFF0C;&#x4F46;&#x53EA;&#x9700;&#x8BF4;&#x5B83;&#x770B;&#x8D77;&#x6765;&#x5F88;&#x50CF;&#x6211;&#x4EEC;&#x4ECE;&#x7B2C; 3 &#x7AE0;&#x5F00;&#x59CB;&#x521B;&#x5EFA;&#x7684;&#x57FA;&#x4E8E; Spring Data &#x7684;&#x5B58;&#x50A8;&#x5E93;&#x3002;</p>
+<p>&#x5173;&#x4E8E; TacoUserRepository&#xFF0C;&#x552F;&#x4E00;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#xFF08;&#x4E3A;&#x4E86;&#x65B9;&#x4FBF;&#x6D4B;&#x8BD5;&#xFF09;&#x60A8;&#x53EF;&#x4EE5;&#x5728; CommandLineRunner bean &#x4E2D;&#x4F7F;&#x7528;&#x5B83;&#xFF0C;&#x901A;&#x8FC7;&#x51E0;&#x4E2A;&#x6D4B;&#x8BD5;&#x9884;&#x586B;&#x5145;&#x7528;&#x6237;&#x5230;&#x6570;&#x636E;&#x5E93;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">ApplicationRunner</span> <span class="token function">dataLoader</span><span class="token punctuation">(</span>
+          <span class="token class-name">UserRepository</span> repo<span class="token punctuation">,</span> <span class="token class-name">PasswordEncoder</span> encoder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> args <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
+    repo<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>
+      <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">&quot;habuma&quot;</span><span class="token punctuation">,</span> encoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token string">&quot;password&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;ROLE_ADMIN&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    repo<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>
+      <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token string">&quot;tacochef&quot;</span><span class="token punctuation">,</span> encoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token string">&quot;password&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;ROLE_ADMIN&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x73B0;&#x5728;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5F00;&#x59CB;&#x5E94;&#x7528;&#x914D;&#x7F6E;&#x6765;&#x542F;&#x7528;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x4E86;&#x3002;&#x7B2C;&#x4E00;&#x6B65;&#xFF0C;&#x914D;&#x7F6E;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x5C31;&#x662F;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x914D;&#x7F6E;&#x7C7B;&#x6765;&#x5BFC;&#x5165;&#x4E00;&#x4E9B;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x7684;&#x901A;&#x7528;&#x914D;&#x7F6E;&#x3002;&#x4E0B;&#x9762;&#x5217;&#x51FA;&#x7684; AuthorizationServerConfig &#x662F;&#x4E00;&#x4E2A;&#x826F;&#x597D;&#x7684;&#x5F00;&#x7AEF;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@Configuration</span><span class="token punctuation">(</span>proxyBeanMethods <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AuthorizationServerConfig</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@Bean</span>
+  <span class="token annotation punctuation">@Order</span><span class="token punctuation">(</span><span class="token class-name">Ordered</span><span class="token punctuation">.</span>HIGHEST_PRECEDENCE<span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token class-name">SecurityFilterChain</span> <span class="token function">authorizationServerSecurityFilterChain</span><span class="token punctuation">(</span><span class="token class-name">HttpSecurity</span> http<span class="token punctuation">)</span>
+    <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+    <span class="token class-name">OAuth2AuthorizationServerConfiguration</span>
+        <span class="token punctuation">.</span><span class="token function">applyDefaultSecurity</span><span class="token punctuation">(</span>http<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> http
+        <span class="token punctuation">.</span><span class="token function">formLogin</span><span class="token punctuation">(</span><span class="token class-name">Customizer</span><span class="token punctuation">.</span><span class="token function">withDefaults</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>authorizationServerSecurityFilterChain()</code> &#x65B9;&#x6CD5;&#x5B9A;&#x4E49; SecurityFilterChain&#xFF0C;&#x4E3A; OAuth 2 &#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x8BBE;&#x7F6E;&#x4E00;&#x4E9B;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#x548C;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;&#x8868;&#x5355;&#x767B;&#x5F55;&#x9875;&#x9762;&#x3002;<code>@Order</code> &#x6CE8;&#x89E3;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x4E3A; Ordered.HIGHEST_PRECEDENCE&#x3002;&#x4E3A;&#x4E86;&#x786E;&#x4FDD;&#x7531;&#x4E8E;&#x67D0;&#x79CD;&#x539F;&#x56E0;&#xFF0C;&#x5982;&#x679C;&#x58F0;&#x660E;&#x4E86;&#x6B64;&#x7C7B;&#x578B;&#x7684;&#x5176;&#x4ED6; bean&#xFF0C;&#x5219;&#x6B64; bean &#x5C06;&#x4F18;&#x5148;&#x4E8E; bean&#x3002;</p>
+<p>&#x5728;&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5C31;&#x662F;&#x6837;&#x677F;&#x914D;&#x7F6E;&#x3002;&#x4F46;&#x5982;&#x679C;&#x60A8;&#x613F;&#x610F;&#xFF0C;&#x53EF;&#x4EE5;&#x5BF9;&#x5176;&#x8FDB;&#x884C;&#x66F4;&#x6DF1;&#x5165;&#x7684;&#x5206;&#x6790;&#x5E76;&#x8FDB;&#x884C;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x3002;&#x73B0;&#x5728;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</p>
+<p>&#x6709;&#x4E00;&#x4E2A;&#x7EC4;&#x4EF6;&#x4E0D;&#x662F;&#x6837;&#x677F;&#x914D;&#x7F6E;&#xFF0C;&#x56E0;&#x6B64;&#x4E0D;&#x662F;&#x7531; OAuth2AuthorizationServerConfiguration &#x63D0;&#x4F9B;&#x7684;&#xFF0C;&#x5C31;&#x662F;&#x5BA2;&#x6237;&#x7AEF;&#x5B58;&#x50A8;&#x5E93;&#x3002;&#x5BA2;&#x6237;&#x7AEF;&#x5B58;&#x50A8;&#x5E93;&#x662F;&#x7C7B;&#x4F3C;&#x4E8E;&#x7528;&#x6237;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#x670D;&#x52A1;&#x6216;&#x7528;&#x6237;&#x5B58;&#x50A8;&#x5E93;&#xFF0C;&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#x5728;&#x4E8E;&#x4E0D;&#x662F;&#x7EF4;&#x62A4;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#x7528;&#x6237;&#xFF0C;&#x800C;&#x662F;&#x4E3A;&#x8BF7;&#x6C42;&#x6388;&#x6743;&#x9700;&#x8981;&#x8BE2;&#x95EE;&#x7684;&#x5BA2;&#x6237;&#x3002;&#x5B83;&#x7531; RegisteredClientRepository &#x63A5;&#x53E3;&#x5B9A;&#x4E49;&#xFF0C;&#x8BE5;&#x63A5;&#x53E3;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">RegisteredClientRepository</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@Nullable</span>
+  <span class="token class-name">RegisteredClient</span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token class-name">String</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token annotation punctuation">@Nullable</span>
+  <span class="token class-name">RegisteredClient</span> <span class="token function">findByClientId</span><span class="token punctuation">(</span><span class="token class-name">String</span> clientId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5728;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x7F16;&#x5199; RegisteredClientRepository &#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#xFF0C;&#x4ECE;&#x6570;&#x636E;&#x5E93;&#x6216;&#x5176;&#x4ED6;&#x6570;&#x636E;&#x6765;&#x6E90;&#x68C0;&#x7D22;&#x5BA2;&#x6237;&#x7AEF;&#x8BE6;&#x7EC6;&#x4FE1;&#x606F;&#x3002;&#x4F46;&#x662F;&#xFF0C;Spring Authorization Server &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x73B0;&#x6210;&#x7684;&#x5185;&#x5B58;&#x5B9E;&#x73B0;&#xFF0C;&#x975E;&#x5E38;&#x9002;&#x5408;&#x7528;&#x4E8E;&#x6F14;&#x793A;&#x548C;&#x6D4B;&#x8BD5;&#x76EE;&#x7684;&#x3002;&#x6211;&#x4EEC;&#x9F13;&#x52B1;&#x60A8;&#x5B9E;&#x73B0;&#x9002;&#x5408;&#x81EA;&#x5DF1;&#x7684; RegisteredClientRepository&#x3002;&#x6211;&#x4EEC;&#x8FD9;&#x91CC;&#x5C06;&#x4F7F;&#x7528;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x5411;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x6CE8;&#x518C;&#x5355;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B; bean &#x65B9;&#x6CD5;&#x5230; AuthorizationServerConfig &#x4E2D;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">RegisteredClientRepository</span> <span class="token function">registeredClientRepository</span><span class="token punctuation">(</span>
+        <span class="token class-name">PasswordEncoder</span> passwordEncoder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">RegisteredClient</span> registeredClient <span class="token operator">=</span>
+    <span class="token class-name">RegisteredClient</span><span class="token punctuation">.</span><span class="token function">withId</span><span class="token punctuation">(</span>UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">clientId</span><span class="token punctuation">(</span><span class="token string">&quot;taco-admin-client&quot;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">clientSecret</span><span class="token punctuation">(</span>passwordEncoder<span class="token punctuation">.</span><span class="token function">encode</span><span class="token punctuation">(</span><span class="token string">&quot;secret&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">clientAuthenticationMethod</span><span class="token punctuation">(</span>
+            <span class="token class-name">ClientAuthenticationMethod</span><span class="token punctuation">.</span>BASIC<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">authorizationGrantType</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationGrantType</span><span class="token punctuation">.</span>AUTHORIZATION_CODE<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">authorizationGrantType</span><span class="token punctuation">(</span><span class="token class-name">AuthorizationGrantType</span><span class="token punctuation">.</span>REFRESH_TOKEN<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">redirectUri</span><span class="token punctuation">(</span>
+            <span class="token string">&quot;http://127.0.0.1:9090/login/oauth2/code/taco-admin-client&quot;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">scope</span><span class="token punctuation">(</span><span class="token string">&quot;writeIngredients&quot;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">scope</span><span class="token punctuation">(</span><span class="token string">&quot;deleteIngredients&quot;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">scope</span><span class="token punctuation">(</span><span class="token class-name">OidcScopes</span><span class="token punctuation">.</span>OPENID<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">clientSettings</span><span class="token punctuation">(</span>
+            clientSettings <span class="token operator">-&gt;</span> clientSettings<span class="token punctuation">.</span><span class="token function">requireUserConsent</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">InMemoryRegisteredClientRepository</span><span class="token punctuation">(</span>registeredClient<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6B63;&#x5982;&#x60A8;&#x6240;&#x770B;&#x5230;&#x7684;&#xFF0C;RegisteredClient &#x4E2D;&#x6709;&#x5F88;&#x591A;&#x4FE1;&#x606F;&#x3002;&#x81EA;&#x4E0A;&#x800C;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x662F;&#x8FD9;&#x6837;&#x5B9A;&#x4E49;&#x7684;&#xFF1A;</p>
+<ul>
+<li>ID&#xFF1A;&#x4E00;&#x4E2A;&#x968F;&#x673A;&#x7684;&#x3001;&#x552F;&#x4E00;&#x7684;&#x6807;&#x8BC6;&#x7B26;&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;ID&#xFF1A;&#x7C7B;&#x4F3C;&#x4E8E;&#x7528;&#x6237;&#x540D;&#xFF0C;&#x4F46;&#x4E0D;&#x662F;&#x7528;&#x6237;&#xFF0C;&#x800C;&#x662F;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x662F;&#x201C;&quot;taco-admin-client&#x201D;&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x5BC6;&#x7801;&#xFF1A;&#x7C7B;&#x4F3C;&#x4E8E;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x5BC6;&#x7801;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x7528;&#x7684; &#x201C;secret&#x201D; &#x8FD9;&#x4E2A;&#x8BCD;&#x4F5C;&#x4E3A;&#x5BA2;&#x6237;&#x7AEF;&#x673A;&#x5BC6;&#x3002;</li>
+<li>&#x6388;&#x6743;&#x6388;&#x4E88;&#x7C7B;&#x578B;&#xFF1A;&#x6B64;&#x5BA2;&#x6237;&#x7AEF;&#x5C06;&#x652F;&#x6301;&#x7684; OAuth 2 &#x6388;&#x6743;&#x7C7B;&#x578B;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x542F;&#x7528;&#x6388;&#x6743; Code &#x548C;&#x5237;&#x65B0;&#x4EE4;&#x724C;&#x6388;&#x6743;&#x3002;</li>
+<li>&#x91CD;&#x5B9A;&#x5411;URL&#xFF1A;&#x5728;&#x83B7;&#x5F97;&#x6388;&#x6743;&#x540E;&#xFF0C;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x53EF;&#x4EE5;&#x91CD;&#x5B9A;&#x5411;&#x5230;&#x7684;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5DF2;&#x6CE8;&#x518C; URL&#x3002;&#x8FD9;&#x589E;&#x52A0;&#x4E86;&#x53E6;&#x4E00;&#x4E2A;&#x5B89;&#x5168;&#x7EA7;&#x522B;&#xFF0C;&#x9632;&#x6B62;&#x4E86;&#x4EFB;&#x610F;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x65E0;&#x6CD5;&#x63A5;&#x6536;&#x6388;&#x6743;&#x7801;&#xFF0C;&#x800C;&#x8BE5;&#x6388;&#x6743;&#x7801;&#x53EF;&#x7528;&#x4E8E;&#x4EA4;&#x6362;&#x4EE4;&#x724C;</li>
+<li>&#x4F5C;&#x7528;&#x57DF;&#xFF1A;&#x5141;&#x8BB8;&#x6B64;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x7684;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A; OAuth 2 &#x4F5C;&#x7528;&#x57DF;&#x3002;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x8BBE;&#x7F6E;&#x4E09;&#x4E2A;&#x4F5C;&#x7528;&#x57DF;&#xFF1A;&#x201C;writeIngredients&#x201D;&#x3001;&#x201C;deleteIngredients&#x201D;&#x548C;&#x5E38;&#x91CF; OidcScopes.OPENID&#xFF0C;&#x89E3;&#x6790;&#x4E3A;&#x201C;openid&#x201D;&#x3002;&#x5F53;&#x7A0D;&#x540E;&#x4F7F;&#x7528;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x4F5C;&#x4E3A; Taco Cloud &#x7BA1;&#x7406;&#x7A0B;&#x5E8F;&#x7684;&#x5355;&#x70B9;&#x767B;&#x5F55;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x65F6;&#xFF0C;&#x201C;openid&#x201D;&#x8303;&#x56F4;&#x662F;&#x5FC5;&#x9700;&#x7684;&#x3002;</li>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x8BBE;&#x7F6E;&#xFF1A;&#x8FD9;&#x662F;&#x4E00;&#x4E2A; lambda&#xFF0C;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x81EA;&#x5B9A;&#x4E49;&#x5BA2;&#x6237;&#x7AEF;&#x8BBE;&#x7F6E;&#x3002;&#x5728;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5728;&#x6388;&#x4E88;&#x8BF7;&#x6C42;&#x7684;&#x8303;&#x56F4;&#x4E4B;&#x524D;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5F97;&#x5230;&#x660E;&#x786E;&#x7684;&#x7528;&#x6237;&#x540C;&#x610F;&#x3002;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#xFF0C;&#x6388;&#x6743;&#x8303;&#x56F4;&#x5C06;&#x5728;&#x7528;&#x6237;&#x767B;&#x5F55;&#x540E;&#x9690;&#x5F0F;&#x6388;&#x4E88;&#x3002;</li>
+</ul>
+<p>&#x6700;&#x540E;&#xFF0C;&#x7531;&#x4E8E;&#x6211;&#x4EEC;&#x7684;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x5C06;&#x751F;&#x6210; JWT &#x4EE4;&#x724C;&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x4E9B;&#x4EE4;&#x724C;&#x9700;&#x8981;&#x4F7F;&#x7528; JSON Web Key&#xFF08;JWK&#xFF09;&#x4F5C;&#x4E3A;&#x7B7E;&#x540D;&#x5BC6;&#x94A5;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x9700;&#x8981;&#x4E00;&#x4E9B; bean &#x6765;&#x751F;&#x6210; JWK&#x3002;&#x6DFB;&#x52A0;&#x4EE5;&#x4E0B; bean &#x65B9;&#x6CD5;&#xFF08;&#x548C;&#x79C1;&#x6709; helper &#x65B9;&#x6CD5;&#xFF09;&#x5230; AuthorizationServerConfig &#x4E2D;&#x5C31;&#x80FD;&#x4E3A;&#x6211;&#x4EEC;&#x5B8C;&#x6210;&#x8FD9;&#x4EF6;&#x5DE5;&#x4F5C;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">JWKSource</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SecurityContext</span><span class="token punctuation">&gt;</span></span> <span class="token function">jwkSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">RSAKey</span> rsaKey <span class="token operator">=</span> <span class="token function">generateRsa</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">JWKSet</span> jwkSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JWKSet</span><span class="token punctuation">(</span>rsaKey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>jwkSelector<span class="token punctuation">,</span> securityContext<span class="token punctuation">)</span> <span class="token operator">-&gt;</span> jwkSelector<span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span>jwkSet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">RSAKey</span> <span class="token function">generateRsa</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">KeyPair</span> keyPair <span class="token operator">=</span> <span class="token function">generateRsaKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">RSAPublicKey</span> publicKey <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">RSAPublicKey</span><span class="token punctuation">)</span> keyPair<span class="token punctuation">.</span><span class="token function">getPublic</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">RSAPrivateKey</span> privateKey <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">RSAPrivateKey</span><span class="token punctuation">)</span> keyPair<span class="token punctuation">.</span><span class="token function">getPrivate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RSAKey<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span>publicKey<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">privateKey</span><span class="token punctuation">(</span>privateKey<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">keyID</span><span class="token punctuation">(</span>UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token class-name">KeyPair</span> <span class="token function">generateRsaKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token class-name">KeyPairGenerator</span> keyPairGenerator <span class="token operator">=</span> <span class="token class-name">KeyPairGenerator</span><span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token string">&quot;RSA&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    keyPairGenerator<span class="token punctuation">.</span><span class="token function">initialize</span><span class="token punctuation">(</span><span class="token number">2048</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> keyPairGenerator<span class="token punctuation">.</span><span class="token function">generateKeyPair</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">JwtDecoder</span> <span class="token function">jwtDecoder</span><span class="token punctuation">(</span><span class="token class-name">JWKSource</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SecurityContext</span><span class="token punctuation">&gt;</span></span> jwkSource<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token class-name">OAuth2AuthorizationServerConfiguration</span><span class="token punctuation">.</span><span class="token function">jwtDecoder</span><span class="token punctuation">(</span>jwkSource<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD9;&#x91CC;&#x4F3C;&#x4E4E;&#x6BD4;&#x8F83;&#x590D;&#x6742;&#x3002;&#x4F46;&#x603B;&#x800C;&#x8A00;&#x4E4B;&#xFF0C;JWKSource &#x521B;&#x5EFA;&#x4E86; 2048 &#x4F4D;&#x7684; RSA &#x5BC6;&#x94A5;&#x5BF9;&#xFF0C;&#x7528;&#x4E8E;&#x5BF9;&#x4EE4;&#x724C;&#x8FDB;&#x884C;&#x7B7E;&#x540D;&#x3002;&#x4EE4;&#x724C;&#x5C06;&#x4F7F;&#x7528;&#x79C1;&#x94A5;&#x8FDB;&#x884C;&#x7B7E;&#x540D;&#x3002;&#x7136;&#x540E;&#xFF0C;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x83B7;&#x53D6;&#x6765;&#x81EA;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x7684;&#x516C;&#x94A5;&#x6765;&#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x3002;&#x6211;&#x4EEC;&#x5C06;&#x5728;&#x521B;&#x5EFA;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x65F6;&#x4F5C;&#x8FDB;&#x4E00;&#x6B65;&#x8BA8;&#x8BBA;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x7684;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x7684;&#x6240;&#x6709;&#x90E8;&#x5206;&#x73B0;&#x5728;&#x90FD;&#x5DF2;&#x5C31;&#x7EEA;&#x3002;&#x5269;&#x4E0B;&#x8981;&#x505A;&#x7684;&#x5C31;&#x662F;&#x8BD5;&#x8BD5;&#x542F;&#x52A8;&#x5B83;&#x3002;&#x6784;&#x5EFA;&#x5E76;&#x8FD0;&#x884C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF0C;&#x60A8;&#x5E94;&#x8BE5;&#x6709;&#x4E00;&#x4E2A;&#x6B63;&#x5728;&#x4FA6;&#x542C; 9000 &#x7AEF;&#x53E3;&#x7684;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p>&#x7531;&#x4E8E;&#x6211;&#x4EEC;&#x8FD8;&#x6CA1;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; web &#x6D4F;&#x89C8;&#x5668;&#x548C; curl &#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x5C06; web &#x6D4F;&#x89C8;&#x5668;&#x6307;&#x5411; <a href="http://localhost:9000/..._/taco-admin-client&amp;scope=writeIngredients+deleteIngredients" target="_blank">http://localhost:9000/..._/taco-admin-client&amp;scope=writeIngredients+deleteIngredients</a> &#x3002;&#x60A8;&#x5C06;&#x770B;&#x5230;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x56FE; 8.2 &#x7684;&#x767B;&#x5F55;&#x9875;&#x3002;</p>
+<p><img src="../assets/8.2.png" alt="">
+<strong>&#x56FE; 8.2 &#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x767B;&#x5F55;&#x9875;&#x3002;</strong></p>
+<p>&#x767B;&#x5F55;&#x540E;&#xFF08;&#x4F7F;&#x7528;&#x201C;tacochef&#x201D;&#x548C;&#x201C;password&#x201D;&#x6216;&#x67D0;&#x4E9B;&#x7528;&#x6237;&#x540D;/&#x5BC6;&#x7801;&#x7EC4;&#x5408;&#x767B;&#x5F55;&#xFF0C;&#x53EA;&#x8981; TacoUserRepository &#x4E0B;&#x7684;&#x6570;&#x636E;&#x5E93;&#x6709;&#x5BF9;&#x5E94;&#x6570;&#x636E;&#xFF09;&#xFF0C;&#x5C06;&#x8981;&#x6C42;&#x60A8;&#x540C;&#x610F;&#x4E0A;&#x8BF7;&#x6C42;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;&#x5982;&#x56FE; 8.3 &#x6240;&#x793A;&#x3002;</p>
+<p><img src="../assets/8.3.png" alt="">
+<strong>&#x56FE; 8.3 &#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x540C;&#x610F;&#x9875;&#x9762;&#x3002;</strong></p>
+<p>&#x6388;&#x4E88;&#x540C;&#x610F;&#x540E;&#xFF0C;&#x6D4F;&#x89C8;&#x5668;&#x5C06;&#x91CD;&#x5B9A;&#x5411;&#x56DE;&#x5BA2;&#x6237;&#x7AEF; URL&#x3002;&#x65E2;&#x7136;&#x6211;&#x4EEC;&#x6CA1;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x90A3;&#x91CC;&#x53EF;&#x80FD;&#x4EC0;&#x4E48;&#x90FD;&#x6CA1;&#x6709;&#xFF0C;&#x60A8;&#x4F1A;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x9519;&#x8BEF;&#x3002;&#x4F46;&#x6CA1;&#x5173;&#x7CFB;&#xFF0C;&#x6211;&#x4EEC;&#x5047;&#x88C5;&#x662F;&#x5BA2;&#x6237;&#x673A;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5C06;&#x81EA;&#x5DF1;&#x4ECE; URL &#x83B7;&#x53D6;&#x6388;&#x6743;&#x7801;&#x3002;</p>
+<p>&#x67E5;&#x770B;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x5730;&#x5740;&#x680F;&#xFF0C;&#x60A8;&#x5C06;&#x770B;&#x5230; URL &#x6709;&#x4E00;&#x4E2A; code &#x53C2;&#x6570;&#x3002;&#x590D;&#x5236;&#x8BE5;&#x53C2;&#x6570;&#x7684;&#x6574;&#x4E2A;&#x503C;&#xFF0C;&#x5E76;&#x5728;&#x4EE5;&#x4E0B; curl &#x547D;&#x4EE4;&#x884C;&#x4E2D;&#x4F7F;&#x7528;&#x5B83;&#x6765;&#x4EE3;&#x66FF; $code&#xFF1A;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">curl</span> localhost:9000/oauth2/token <span class="token punctuation">\</span>
+  -H<span class="token string">&quot;Content-type: application/x-www-form-urlencoded&quot;</span> <span class="token punctuation">\</span>
+  -d<span class="token string">&quot;grant_type=authorization_code&quot;</span> <span class="token punctuation">\</span>
+  -d<span class="token string">&quot;redirect_uri=http://127.0.0.1:9090/login/oauth2/code/taco-admin-client&quot;</span> <span class="token punctuation">\</span>
+  -d<span class="token string">&quot;code=<span class="token variable">$code</span>&quot;</span> <span class="token punctuation">\</span>
+  -u taco-admin-client:secret
+</code></pre>
+<p>&#x5728;&#x8FD9;&#x91CC;&#xFF0C;&#x6211;&#x4EEC;&#x5C06;&#x7528;&#x6536;&#x5230;&#x7684;&#x6388;&#x6743;&#x7801;&#x4EA4;&#x6362;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x3002;&#x6709;&#x6548;&#x8F7D;&#x8377;&#x91C7;&#x7528;&#x201C;application/x-www-form-urlencoded&#x201D;&#x683C;&#x5F0F;&#xFF0C;&#x5E76;&#x53D1;&#x9001;&#x6388;&#x6743;&#x7C7B;&#x578B;&#xFF08;&#x201C;authorization_code&#x201D;&#xFF09;&#x3001;&#x91CD;&#x5B9A;&#x5411;URI&#xFF08;&#x7528;&#x4E8E;&#x9644;&#x52A0;&#x5B89;&#x5168;&#x6027;&#xFF09;&#x548C;&#x6388;&#x6743;&#x7801;&#x3002;&#x5982;&#x679C;&#x4E00;&#x5207;&#x987A;&#x5229;&#xFF0C;&#x90A3;&#x4E48;&#x60A8;&#x5C06;&#x6536;&#x5230;&#x4E00;&#x4E2A; JSON &#x54CD;&#x5E94;&#xFF08;&#x683C;&#x5F0F;&#x5316;&#x540E;&#xFF09;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;access_token&quot;</span><span class="token operator">:</span><span class="token string">&quot;eyJraWQ...&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;refresh_token&quot;</span><span class="token operator">:</span><span class="token string">&quot;HOzHA5s...&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;scope&quot;</span><span class="token operator">:</span><span class="token string">&quot;deleteIngredients writeIngredients&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;token_type&quot;</span><span class="token operator">:</span><span class="token string">&quot;Bearer&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;expires_in&quot;</span><span class="token operator">:</span><span class="token string">&quot;299&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x201C;access_token&#x201D;&#x5C5E;&#x6027;&#x5305;&#x542B;&#x5BA2;&#x6237;&#x7AEF;&#x53EF;&#x7528;&#x4E8E;&#x5411; API &#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#x7684;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x5B83;&#x6BD4;&#x8FD9;&#x91CC;&#x663E;&#x793A;&#x7684;&#x8981;&#x957F;&#x5F97;&#x591A;&#x3002;&#x540C;&#x6837;&#xFF0C;&#x201C;refresh_token&#x201D;&#x4E5F;&#x5DF2;&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x4EE5;&#x8282;&#x7701;&#x7A7A;&#x95F4;&#x3002;&#x4F46;&#x662F;&#x73B0;&#x5728;&#x53EF;&#x4EE5;&#x5411;&#x6388;&#x6743;&#x8303;&#x56F4;&#x662F;&#x201C;WriteIngElements&#x201D;&#x6216;&#x201C;DeleteIngElements&#x201D;&#x7684;&#x8D44;&#x6E90;&#x53D1;&#x51FA;&#x8BF7;&#x6C42;&#x65F6;&#x53D1;&#x9001;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x4E86;&#x3002;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x5C06;&#x5728; 299 &#x79D2;&#xFF08;&#x6216;&#x4E0D;&#x5230; 5 &#x5206;&#x949F;&#xFF09;&#x540E;&#x8FC7;&#x671F;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5FC5;&#x987B;&#x5FEB;&#x901F;&#x64CD;&#x4F5C;&#x3002;&#x5982;&#x679C;&#x5B83;&#x8FC7;&#x671F;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5237;&#x65B0;&#x4EE4;&#x724C;&#x83B7;&#x53D6;&#x65B0;&#x7684;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x518D;&#x6B21;&#x901A;&#x8FC7;&#x6388;&#x6743;&#x6D41;&#x3002;</p>
+<p>&#x90A3;&#x4E48;&#xFF0C;&#x6211;&#x4EEC;&#x5982;&#x4F55;&#x4F7F;&#x7528;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x5927;&#x6982;&#x4F1A;&#x5411; Taco Cloud API &#x53D1;&#x9001;&#x8BF7;&#x6C42;&#xFF0C;&#x4F5C;&#x4E3A;&#x201C;Authorization&#x201D;&#x8BF7;&#x6C42;&#x5934;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;&#x50CF;&#x8FD9;&#x6837;&#xFF1A;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">curl</span> localhost:8080/ingredients <span class="token punctuation">\</span>
+  -H<span class="token string">&quot;Content-type: application/json&quot;</span> <span class="token punctuation">\</span>
+  -H<span class="token string">&quot;Authorization: Bearer eyJraWQ...&quot;</span> <span class="token punctuation">\</span>
+  -d<span class="token string">&apos;{&quot;id&quot;:&quot;FISH&quot;,&quot;name&quot;:&quot;Stinky Fish&quot;, &quot;type&quot;:&quot;PROTEIN&quot;}&apos;</span>
+</code></pre>
+<p>&#x5728;&#x8FD9;&#x4E00;&#x70B9;&#x4E0A;&#xFF0C;&#x4EE4;&#x724C;&#x5BF9;&#x6211;&#x4EEC;&#x6765;&#x8BF4;&#x6BEB;&#x65E0;&#x7528;&#x5904;&#x3002;&#x90A3;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x4EEC;&#x7684; Taco Cloud API &#x8FD8;&#x6CA1;&#x6709;&#x542F;&#x7528;&#x4E3A;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x4F7F;&#x7528;&#x5B9E;&#x9645;&#x7684;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x548C;&#x5BA2;&#x6237;&#x7AEF; API&#xFF0C;&#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x590D;&#x5236;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x5E76;&#x7C98;&#x8D34;&#x5230; <a href="https://jwt.io" target="_blank">https://jwt.io</a> &#x8FDB;&#x884C;&#x89E3;&#x7801;&#x6821;&#x9A8C;&#x3002;&#x7ED3;&#x679C;&#x5982;&#x56FE; 8.4 &#x6240;&#x793A;&#x3002;</p>
+<p><img src="../assets/8.4.png" alt="">
+<strong>&#x56FE; 8.4 &#x5728; JWT.io &#x5904;&#x89E3;&#x7801; JWT &#x4EE4;&#x724C;&#x3002;</strong></p>
+<p>&#x5982;&#x60A8;&#x6240;&#x89C1;&#xFF0C;&#x4EE4;&#x724C;&#x88AB;&#x89E3;&#x7801;&#x4E3A;&#x4E09;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;&#x62A5;&#x5934;&#x3001;&#x6709;&#x6548;&#x8D1F;&#x8F7D;&#x548C;&#x7B7E;&#x540D;&#x3002;&#x4ED4;&#x7EC6;&#x67E5;&#x770B;&#x6709;&#x6548;&#x8D1F;&#x8F7D;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x8BE5;&#x4EE4;&#x724C;&#x662F;&#x4EE3;&#x8868;&#x540D;&#x4E3A;&#x201C;tacochef&#x201D;&#x7684;&#x7528;&#x6237;&#xFF0C;&#x4EE4;&#x724C;&#x5177;&#x6709;&#x201C;WriteIngElements&#x201D;&#x548C;&#x201C;DeleteComponents&#x201D;&#x4F5C;&#x7528;&#x57DF;&#x3002;&#x6B63;&#x662F;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;&#xFF01;</p>
+<p>&#x5927;&#x7EA6; 5 &#x5206;&#x949F;&#x540E;&#xFF0C;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x5C06;&#x8FC7;&#x671F;&#x3002;&#x60A8;&#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x5728;&#x8C03;&#x8BD5;&#x5668;&#x4E2D;&#x68C0;&#x67E5;&#x5B83;&#xFF1A;[<a href="https://jwt.io]https://jwt.io&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x5B83;&#x662F;&#x5BF9;" target="_blank">https://jwt.io]https://jwt.io&#xFF0C;&#x4F46;&#x5982;&#x679C;&#x5B83;&#x662F;&#x5BF9;</a> API &#x7684;&#x5B9E;&#x9645;&#x8BF7;&#x6C42;&#x4E2D;&#x7ED9;&#x51FA;&#x7684;&#xFF0C;&#x5219;&#x4F1A;&#x88AB;&#x62D2;&#x7EDD;&#x3002;&#x60A8;&#x53EF;&#x4EE5;&#x8BF7;&#x6C42;&#x65B0;&#x7684;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x518D;&#x6B21;&#x901A;&#x8FC7;&#x6388;&#x6743;&#x7801;&#x6388;&#x4E88;&#x6D41;&#x3002;&#x60A8;&#x9700;&#x8981;&#x505A;&#x7684;&#x662F;&#x4F7F;&#x7528;&#x201C;refresh_token&#x201D;&#x5411;&#x6388;&#x6743;&#x670D;&#x52A1;&#x5668;&#x53D1;&#x51FA;&#x65B0;&#x8BF7;&#x6C42;&#xFF0C;&#x5C06;&#x5237;&#x65B0;&#x4EE4;&#x724C;&#x4F5C;&#x4E3A;&#x201C;refresh_token&#x201D;&#x7684;&#x53C2;&#x6570;&#x8FDB;&#x884C;&#x4F20;&#x9012;&#x3002;&#x4F7F;&#x7528; curl &#x8BF7;&#x6C42;&#x5C06;&#x5982;&#x4E0B;&#x6240;&#x793A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">curl</span> localhost:9000/oauth2/token <span class="token punctuation">\</span>
+  -H<span class="token string">&quot;Content-type: application/x-www-form-urlencoded&quot;</span> <span class="token punctuation">\</span>
+  -d<span class="token string">&quot;grant_type=refresh_token&amp;refresh_token=HOzHA5s...&quot;</span> <span class="token punctuation">\</span>
+  -u taco-admin-client:secret
+</code></pre>
+<p>&#x5BF9;&#x6B64;&#x8BF7;&#x6C42;&#x7684;&#x54CD;&#x5E94;&#xFF0C;&#x4E0E;&#x4F7F;&#x7528;&#x6388;&#x6743;&#x7801;&#x4EA4;&#x6362;&#x521D;&#x59CB;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x7684;&#x8BF7;&#x6C42;&#x8FD4;&#x56DE;&#xFF0C;&#x662F;&#x57FA;&#x672C;&#x76F8;&#x540C;&#x7684;&#x3002;&#x4EC5;&#x591A;&#x4E86;&#x65B0;&#x7684;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x3002;</p>
+<p>&#x867D;&#x7136;&#x5C06;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x7C98;&#x8D34;&#x5230; <a href="https://jwt.io" target="_blank">https://jwt.io</a> &#x5F88;&#x6709;&#x8DA3;&#xFF0C;&#x4F46;&#x8BBF;&#x95EE;&#x4EE4;&#x724C;&#x771F;&#x6B63;&#x7684;&#x5A01;&#x529B;&#x548C;&#x76EE;&#x7684;&#x662F;&#x7528;&#x4E8E;&#x8BBF;&#x95EE; API&#x3002;&#x8BA9;&#x6211;&#x4EEC;&#x770B;&#x770B;&#x5982;&#x4F55;&#x5728;Taco Cloud API &#x4E0A;&#x542F;&#x7528;&#x8D44;&#x6E90;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+
+<script>console.log("plugin-popup....");document.onclick = function(e){ e.target.tagName === "IMG" && window.open(e.target.src,e.target.src)}</script><style>img{cursor:pointer}</style>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="8.1-Introducing-OAuth-2.html" class="navigation navigation-prev " aria-label="Previous page: 8.1 OAuth 2 介绍">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="8.3-Securing-an-API-with-a-Resource-Server.html" class="navigation navigation-next " aria-label="Next page: 8.3 利用资源服务器保护 API">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"8.2 创建验证服务器","level":"1.10.2","depth":2,"next":{"title":"8.3 利用资源服务器保护 API","level":"1.10.3","depth":2,"path":"Chapter-08/8.3-Securing-an-API-with-a-Resource-Server.md","ref":"Chapter-08/8.3-Securing-an-API-with-a-Resource-Server.md","articles":[]},"previous":{"title":"8.1 OAuth 2 介绍","level":"1.10.1","depth":2,"path":"Chapter-08/8.1-Introducing-OAuth-2.md","ref":"Chapter-08/8.1-Introducing-OAuth-2.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","search-pro","back-to-top-button","chapter-fold","code","copy-code-button","pageview-count","auto-scroll-table","popup","theme-comscore","prism","-highlight","fontsettings"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"github":{"url":"https://leonli0102.github.io/spring-in-action-v6-translate/"},"search-pro":{},"auto-scroll-table":{},"popup":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"code":{"copyButtons":true},"fontsettings":{"family":"sans","size":2,"theme":"white"},"fontSettings":{"theme":"white","family":"serif","size":4},"theme-comscore":{},"back-to-top-button":{},"pageview-count":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Craig Walls","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Spring In Action","language":"zh-hans","gitbook":"*"},"file":{"path":"Chapter-08/8.2-Creating-an-Authorization-Server.md","mtime":"2022-01-25T14:14:03.281Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-02-07T06:43:32.515Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-chapter-fold/chapter-fold.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-pageview-count/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-auto-scroll-table/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    </body>
+</html>
+
